@@ -1,5 +1,5 @@
 ```html
-<!-- v3.1.3 -->
+<!-- v3.1.4 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -1147,7 +1147,7 @@ body::after{
       <span style="opacity:.35">·</span>
       <span>Curated Storyline Index</span>
     </div>
-    <div class="rule-right">v3.1.3 · 棠栀 Talia</div>
+    <div class="rule-right">v3.1.4 · 棠栀 Talia</div>
   </div>
   <div class="rule-divider"></div>
 
@@ -1631,7 +1631,7 @@ body::after{
 
   <footer class="footer">
     <span>Author · 棠栀 Talia</span>
-    <span>v3.1.3 · Gaspard de Valois · Dossier Archive</span>
+    <span>v3.1.4 · Gaspard de Valois · Dossier Archive</span>
   </footer>
 </div>
 
@@ -1693,28 +1693,45 @@ function playSceneTransition(){
   const existing = document.getElementById('gas-scene-overlay');
   if(existing) existing.remove();
 
+  const vv = window.visualViewport;
+  const viewLeft = (window.scrollX || window.pageXOffset || 0) + (vv?.offsetLeft || 0);
+  const viewTop = (window.scrollY || window.pageYOffset || 0) + (vv?.offsetTop || 0);
+  const viewWidth = vv?.width || window.innerWidth || document.documentElement.clientWidth || 0;
+  const viewHeight = vv?.height || window.innerHeight || document.documentElement.clientHeight || 0;
+  const centerX = viewLeft + viewWidth / 2;
+  const centerY = viewTop + viewHeight / 2;
+
+  const frameWidth = Math.min(viewWidth * (viewWidth < 560 ? 0.84 : 0.76), 720);
+  const frameHeight = Math.min(frameWidth * 0.7, viewHeight * 0.5);
+  const lensSize = Math.min(frameWidth * 0.31, viewWidth * 0.32, 210);
+  const cornerOffset = Math.max(18, Math.min(frameWidth * 0.04, 28));
+  const cornerSize = Math.max(52, Math.min(frameWidth * 0.1, 72));
+
   const overlay = document.createElement('div');
   overlay.id = 'gas-scene-overlay';
   overlay.setAttribute('aria-hidden', 'true');
   overlay.style.cssText = [
-    'position:fixed',
-    'inset:0',
+    'position:absolute',
+    `left:${viewLeft}px`,
+    `top:${viewTop}px`,
+    `width:${viewWidth}px`,
+    `height:${viewHeight}px`,
     'z-index:2147483647',
     'pointer-events:none',
     'background:rgba(4,6,9,0)',
     'opacity:1',
-    'transition:none'
+    'transition:none',
+    'overflow:visible'
   ].join(';');
 
   const frame = document.createElement('div');
   frame.style.cssText = [
     'position:absolute',
-    'left:50%',
-    'top:50%',
+    `left:${centerX}px`,
+    `top:${centerY}px`,
     'transform:translate(-50%,-50%) scale(.94)',
-    'width:min(86vw,720px)',
-    'height:min(62vw,500px)',
-    'max-height:74vh',
+    `width:${frameWidth}px`,
+    `height:${frameHeight}px`,
     'border:2px solid rgba(242,246,252,.92)',
     'box-shadow:0 0 0 1px rgba(201,170,114,.45) inset, 0 0 30px rgba(0,0,0,.45)',
     'opacity:0'
@@ -1726,8 +1743,8 @@ function playSceneTransition(){
     'left:50%',
     'top:50%',
     'transform:translate(-50%,-50%) scale(.9)',
-    'width:min(31vw,210px)',
-    'height:min(31vw,210px)',
+    `width:${lensSize}px`,
+    `height:${lensSize}px`,
     'border-radius:999px',
     'border:3px solid rgba(242,246,252,.96)',
     'box-shadow:0 0 0 2px rgba(201,170,114,.5) inset, 0 0 24px rgba(201,170,114,.22)',
@@ -1739,10 +1756,10 @@ function playSceneTransition(){
     const el = document.createElement('div');
     el.style.cssText = [
       'position:absolute',
-      `${x}:28px`,
-      `${y}:28px`,
-      'width:72px',
-      'height:72px',
+      `${x}:${cornerOffset}px`,
+      `${y}:${cornerOffset}px`,
+      `width:${cornerSize}px`,
+      `height:${cornerSize}px`,
       'border-color:rgba(245,248,252,.98)',
       'border-style:solid',
       'opacity:0'
@@ -1770,16 +1787,21 @@ function playSceneTransition(){
     'transform:translateY(-50%) scaleX(.12)'
   ].join(';');
 
+  const badgeFont = viewWidth < 560 ? '11px' : '12px';
+  const badgePad = viewWidth < 560 ? '7px 10px' : '8px 12px';
+  const badgeTop = viewWidth < 560 ? '16px' : '20px';
+  const badgeSide = viewWidth < 560 ? '16px' : '24px';
+
   const rec = document.createElement('div');
   rec.style.cssText = [
     'position:absolute',
-    'left:24px',
-    'top:20px',
-    'padding:8px 12px',
+    `left:${badgeSide}`,
+    `top:${badgeTop}`,
+    `padding:${badgePad}`,
     'border:1px solid rgba(242,246,252,.22)',
     'background:rgba(8,10,14,.76)',
     'color:#f4efe7',
-    'font-size:12px',
+    `font-size:${badgeFont}`,
     'letter-spacing:.22em',
     'text-transform:uppercase',
     'opacity:0'
@@ -1789,13 +1811,13 @@ function playSceneTransition(){
   const cap = document.createElement('div');
   cap.style.cssText = [
     'position:absolute',
-    'right:24px',
-    'top:20px',
-    'padding:8px 12px',
+    `right:${badgeSide}`,
+    `top:${badgeTop}`,
+    `padding:${badgePad}`,
     'border:1px solid rgba(242,246,252,.22)',
     'background:rgba(8,10,14,.76)',
     'color:#f4efe7',
-    'font-size:12px',
+    `font-size:${badgeFont}`,
     'letter-spacing:.22em',
     'text-transform:uppercase',
     'opacity:0'
@@ -1810,9 +1832,11 @@ function playSceneTransition(){
     'transform:translateX(-50%) translateY(10px)',
     'text-align:center',
     'opacity:0',
-    'color:#f4efe7'
+    'color:#f4efe7',
+    'width:max-content',
+    'max-width:88vw'
   ].join(';');
-  copy.innerHTML = '<div style="font-family:Cormorant Garamond,serif;font-size:clamp(28px,3vw,38px);letter-spacing:.16em;text-transform:uppercase;">Ne bougez pas.</div><div style="margin-top:10px;font-family:Noto Serif SC,serif;font-size:13px;letter-spacing:.28em;color:rgba(232,238,246,.82)">别动。</div>';
+  copy.innerHTML = `<div style="font-family:Cormorant Garamond,serif;font-size:${viewWidth < 560 ? '22px' : 'clamp(28px,3vw,38px)'};letter-spacing:.16em;text-transform:uppercase;">Ne bougez pas.</div><div style="margin-top:10px;font-family:Noto Serif SC,serif;font-size:${viewWidth < 560 ? '12px' : '13px'};letter-spacing:.28em;color:rgba(232,238,246,.82)">别动。</div>`;
 
   const flash = document.createElement('div');
   flash.style.cssText = [
