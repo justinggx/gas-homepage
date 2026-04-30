@@ -629,6 +629,9 @@ body::after{
   font-size:.76rem;letter-spacing:.06em;
   transition:.2s;
 }
+.btn.is-busy{
+  opacity:.72;
+}
 .btn:hover{
   border-color:rgba(214,223,238,.3);
   background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
@@ -877,12 +880,309 @@ body::after{
   position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.32;
 }
 
+/* ─── SCENE TRANSITION / CAMERA FLASH ─── */
+.scene-transition{
+  position:fixed;
+  inset:0;
+  z-index:10020;
+  pointer-events:none;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .18s ease, visibility .18s ease;
+}
+.scene-transition.active{
+  opacity:1;
+  visibility:visible;
+}
+.scene-transition::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(201,170,114,.08), transparent 38%),
+    linear-gradient(to bottom, rgba(5,7,10,.28), rgba(5,7,10,.78));
+}
+.scene-transition::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg, rgba(255,255,255,.09), transparent 38%, transparent 62%, rgba(255,255,255,.05));
+  opacity:.18;
+}
+.scene-transition.playing .transition-stage{
+  opacity:1;
+}
+.scene-transition.playing .camera-rig{
+  animation:camRigEnter .68s cubic-bezier(.22,.8,.18,1) forwards;
+}
+.scene-transition.playing .camera-lens{
+  animation:camLensPulse .68s cubic-bezier(.22,.8,.18,1) forwards;
+}
+.scene-transition.playing .focus-bracket{
+  animation:focusBracketLock .34s cubic-bezier(.24,.78,.22,1) forwards;
+}
+.scene-transition.playing .focus-bracket.tl{animation-delay:.06s}
+.scene-transition.playing .focus-bracket.tr{animation-delay:.1s}
+.scene-transition.playing .focus-bracket.bl{animation-delay:.14s}
+.scene-transition.playing .focus-bracket.br{animation-delay:.18s}
+.scene-transition.playing .focus-line{
+  animation:focusSweep .34s ease-out .12s forwards;
+}
+.scene-transition.playing .transition-copy{
+  animation:copyReveal .48s ease-out .18s forwards;
+}
+.scene-transition.playing .camera-glint{
+  animation:glintSweep .42s ease-out .2s forwards;
+}
+.scene-transition.playing .shutter-sheen{
+  animation:shutterSheen .22s ease-out .38s forwards;
+}
+.scene-transition.playing .flash-layer{
+  animation:flashBurst .34s cubic-bezier(.16,.84,.2,1) .46s forwards;
+}
+.scene-transition.playing .film-grain{
+  animation:grainBlink .28s steps(2,end) .5s forwards;
+}
+.transition-stage{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+}
+.camera-rig{
+  position:relative;
+  width:min(72vw, 480px);
+  aspect-ratio:1 / .72;
+  opacity:0;
+  transform:scale(.84) translateY(14px);
+}
+.camera-vignette{
+  position:absolute;
+  inset:-18%;
+  border-radius:999px;
+  background:radial-gradient(circle, rgba(255,255,255,.04) 0%, rgba(255,255,255,0) 62%);
+  filter:blur(18px);
+  opacity:.55;
+}
+.camera-lens{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(28vw, 172px);
+  aspect-ratio:1;
+  transform:translate(-50%, -50%) scale(.88);
+  border-radius:50%;
+  border:1px solid rgba(214,223,238,.18);
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,.18), rgba(255,255,255,.03) 20%, rgba(10,14,18,.92) 62%, rgba(3,4,7,.98) 100%);
+  box-shadow:
+    0 0 0 1px rgba(201,170,114,.08) inset,
+    0 0 0 14px rgba(255,255,255,.015) inset,
+    0 18px 60px rgba(0,0,0,.42);
+}
+.camera-lens::before,
+.camera-lens::after{
+  content:"";
+  position:absolute;
+  inset:12%;
+  border-radius:50%;
+}
+.camera-lens::before{
+  border:1px solid rgba(212,220,232,.13);
+}
+.camera-lens::after{
+  inset:27%;
+  background:radial-gradient(circle at 42% 38%, rgba(255,255,255,.12), rgba(255,255,255,0) 42%);
+}
+.camera-glint{
+  position:absolute;
+  top:17%;
+  left:21%;
+  width:56%;
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.9), rgba(255,238,212,.65), transparent);
+  opacity:0;
+  transform:translateX(-18%) rotate(-11deg);
+  filter:blur(.2px);
+}
+.focus-bracket{
+  position:absolute;
+  width:min(16vw, 96px);
+  height:min(16vw, 96px);
+  opacity:0;
+  transform:scale(.7);
+}
+.focus-bracket::before,
+.focus-bracket::after{
+  content:"";
+  position:absolute;
+  background:linear-gradient(90deg, rgba(210,218,230,.88), rgba(201,170,114,.72));
+  box-shadow:0 0 12px rgba(255,245,230,.1);
+}
+.focus-bracket::before{height:1px;width:38px}
+.focus-bracket::after{width:1px;height:38px}
+.focus-bracket.tl{top:8%;left:7%}
+.focus-bracket.tl::before,.focus-bracket.tl::after{top:0;left:0}
+.focus-bracket.tr{top:8%;right:7%}
+.focus-bracket.tr::before,.focus-bracket.tr::after{top:0;right:0}
+.focus-bracket.tr::before{right:0}
+.focus-bracket.tr::after{right:0}
+.focus-bracket.bl{bottom:8%;left:7%}
+.focus-bracket.bl::before,.focus-bracket.bl::after{bottom:0;left:0}
+.focus-bracket.bl::before{left:0}
+.focus-bracket.bl::after{bottom:0}
+.focus-bracket.br{bottom:8%;right:7%}
+.focus-bracket.br::before,.focus-bracket.br::after{bottom:0;right:0}
+.focus-line{
+  position:absolute;
+  left:10%;
+  right:10%;
+  top:50%;
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(245,242,236,.88), rgba(201,170,114,.95), transparent);
+  box-shadow:0 0 14px rgba(255,246,233,.22);
+  opacity:0;
+  transform:scaleX(.2);
+}
+.shutter-sheen{
+  position:absolute;
+  inset:0;
+  border-radius:26px;
+  background:radial-gradient(circle at 50% 48%, rgba(255,255,255,.13), rgba(255,255,255,0) 40%);
+  opacity:0;
+}
+.transition-copy{
+  position:absolute;
+  left:50%;
+  bottom:-54px;
+  transform:translateX(-50%) translateY(12px);
+  text-align:center;
+  opacity:0;
+}
+.transition-copy .fr{
+  display:block;
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(1.25rem,2.2vw,1.8rem);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#f4efe7;
+  text-shadow:0 0 24px rgba(0,0,0,.4);
+}
+.transition-copy .cn{
+  display:block;
+  margin-top:8px;
+  font-family:"Noto Serif SC",serif;
+  font-size:.78rem;
+  letter-spacing:.28em;
+  color:rgba(212,220,232,.72);
+}
+.flash-layer,
+.film-grain{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  pointer-events:none;
+}
+.flash-layer{
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255,251,246,.98), rgba(255,248,239,.9) 22%, rgba(255,245,234,.52) 40%, rgba(255,241,225,0) 68%),
+    linear-gradient(180deg, rgba(255,252,248,.96), rgba(255,248,240,.82));
+  mix-blend-mode:screen;
+}
+.film-grain{
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.9'/%3E%3C/svg%3E");
+  background-size:170px;
+  mix-blend-mode:soft-light;
+}
+@keyframes camRigEnter{
+  0%{opacity:0;transform:scale(.84) translateY(14px)}
+  38%{opacity:1}
+  100%{opacity:1;transform:scale(1) translateY(0)}
+}
+@keyframes camLensPulse{
+  0%{transform:translate(-50%, -50%) scale(.86);box-shadow:0 18px 60px rgba(0,0,0,.35)}
+  55%{transform:translate(-50%, -50%) scale(1)}
+  100%{transform:translate(-50%, -50%) scale(.985);box-shadow:0 0 0 1px rgba(201,170,114,.08) inset,0 0 0 14px rgba(255,255,255,.015) inset,0 18px 68px rgba(0,0,0,.52)}
+}
+@keyframes focusBracketLock{
+  0%{opacity:0;transform:scale(.7)}
+  100%{opacity:.95;transform:scale(1)}
+}
+@keyframes focusSweep{
+  0%{opacity:0;transform:scaleX(.2)}
+  32%{opacity:.9}
+  100%{opacity:0;transform:scaleX(1)}
+}
+@keyframes copyReveal{
+  0%{opacity:0;transform:translateX(-50%) translateY(12px)}
+  100%{opacity:1;transform:translateX(-50%) translateY(0)}
+}
+@keyframes glintSweep{
+  0%{opacity:0;transform:translateX(-22%) rotate(-11deg)}
+  40%{opacity:.92}
+  100%{opacity:0;transform:translateX(16%) rotate(-11deg)}
+}
+@keyframes shutterSheen{
+  0%{opacity:0;transform:scale(.96)}
+  100%{opacity:1;transform:scale(1)}
+}
+@keyframes flashBurst{
+  0%{opacity:0}
+  12%{opacity:1}
+  46%{opacity:.92}
+  100%{opacity:0}
+}
+@keyframes grainBlink{
+  0%{opacity:0}
+  32%{opacity:.26}
+  100%{opacity:0}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .scene-transition,
+  .scene-transition *{
+    animation:none !important;
+    transition:none !important;
+  }
+  .scene-transition.playing .flash-layer{opacity:.92}
+  .scene-transition.playing .transition-stage,
+  .scene-transition.playing .camera-rig,
+  .scene-transition.playing .focus-bracket,
+  .scene-transition.playing .transition-copy{opacity:1;transform:none}
+}
+
 /* ─── MAIN CONTENT spacing ─── */
 .main-content{padding:22px 0 0}
 </style>
 </head>
 <body>
 <canvas id="starCanvas"></canvas>
+
+<div class="scene-transition" id="sceneTransition" aria-hidden="true">
+  <div class="transition-stage">
+    <div class="camera-rig">
+      <div class="camera-vignette"></div>
+      <div class="focus-bracket tl"></div>
+      <div class="focus-bracket tr"></div>
+      <div class="focus-bracket bl"></div>
+      <div class="focus-bracket br"></div>
+      <div class="focus-line"></div>
+      <div class="camera-lens">
+        <div class="camera-glint"></div>
+      </div>
+      <div class="shutter-sheen"></div>
+      <div class="transition-copy">
+        <span class="fr">Ne bougez pas.</span>
+        <span class="cn">别动。</span>
+      </div>
+    </div>
+  </div>
+  <div class="flash-layer"></div>
+  <div class="film-grain"></div>
+</div>
 
 <!-- ══════════════════════════════════ HERO ══════════════════════════════════ -->
 <section class="hero">
@@ -1041,7 +1341,7 @@ body::after{
                 </div>
                 <div class="dossier-actions">
                   <div class="action-row action-right">
-                    <button class="btn" onclick="jmp(1)">进入场景</button>
+                    <button class="btn" onclick="jmp(1,this)">进入场景</button>
                   </div>
                 </div>
               </div>
@@ -1069,7 +1369,7 @@ body::after{
                 </div>
                 <div class="dossier-actions">
                   <div class="action-row action-right">
-                    <button class="btn" onclick="jmp(2)">进入场景</button>
+                    <button class="btn" onclick="jmp(2,this)">进入场景</button>
                   </div>
                 </div>
               </div>
@@ -1097,7 +1397,7 @@ body::after{
                 </div>
                 <div class="dossier-actions">
                   <div class="action-row action-right">
-                    <button class="btn" onclick="jmp(3)">进入场景</button>
+                    <button class="btn" onclick="jmp(3,this)">进入场景</button>
                   </div>
                 </div>
               </div>
@@ -1144,7 +1444,7 @@ body::after{
                 <div class="dossier-actions">
                   <span class="hint hint-alert">请开启前男友线</span>
                   <div class="action-row">
-                    <button class="btn" onclick="jmp(4)">进入场景</button>
+                    <button class="btn" onclick="jmp(4,this)">进入场景</button>
                   </div>
                 </div>
               </div>
@@ -1173,7 +1473,7 @@ body::after{
                 <div class="dossier-actions">
                   <span class="hint hint-alert">请开启前男友线</span>
                   <div class="action-row">
-                    <button class="btn" onclick="jmp(5)">进入场景</button>
+                    <button class="btn" onclick="jmp(5,this)">进入场景</button>
                   </div>
                 </div>
               </div>
@@ -1220,7 +1520,7 @@ body::after{
                 <div class="dossier-actions">
                   <span class="hint hint-alert">请开启ABO世界观</span>
                   <div class="action-row">
-                    <button class="btn" onclick="jmp(6)">进入场景</button>
+                    <button class="btn" onclick="jmp(6,this)">进入场景</button>
                   </div>
                 </div>
               </div>
@@ -1249,7 +1549,7 @@ body::after{
                 <div class="dossier-actions">
                   <span class="hint hint-alert">请开启ABO世界观</span>
                   <div class="action-row">
-                    <button class="btn" onclick="jmp(7)">进入场景</button>
+                    <button class="btn" onclick="jmp(7,this)">进入场景</button>
                   </div>
                 </div>
               </div>
@@ -1298,7 +1598,7 @@ body::after{
                 </div>
                 <div class="dossier-actions">
                   <div class="action-row action-right">
-                    <button class="btn" onclick="jmp(8)">进入场景</button>
+                    <button class="btn" onclick="jmp(8,this)">进入场景</button>
                   </div>
                 </div>
               </div>
@@ -1329,7 +1629,7 @@ body::after{
                 </div>
                 <div class="dossier-actions">
                   <div class="action-row action-right">
-                    <button class="btn" onclick="jmp(9)">进入场景</button>
+                    <button class="btn" onclick="jmp(9,this)">进入场景</button>
                   </div>
                 </div>
               </div>
@@ -1435,17 +1735,48 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
 });
 
+let sceneTransitionBusy = false;
 
-async function jmp(i){
+function playSceneTransition(){
+  const overlay = document.getElementById('sceneTransition');
+  if(!overlay) return Promise.resolve();
+
+  overlay.classList.add('active');
+  // force reflow to restart animation cleanly
+  void overlay.offsetWidth;
+  overlay.classList.remove('playing');
+  void overlay.offsetWidth;
+  overlay.classList.add('playing');
+
+  return new Promise(resolve => {
+    window.setTimeout(()=>{
+      overlay.classList.remove('playing');
+      overlay.classList.remove('active');
+      resolve();
+    }, 980);
+  });
+}
+
+async function jmp(i, btn){
+  if(sceneTransitionBusy) return;
   if(typeof setChatMessages!=='function'){
     alert('请确保酒馆助手插件已开启。');
     return;
   }
+
+  sceneTransitionBusy = true;
+  const trigger = btn || document.activeElement;
+  trigger?.classList?.add('is-busy');
+
   try{
+    await playSceneTransition();
     await setChatMessages([{message_id:0, swipe_id:i}]);
   }catch(e){
     alert('跳转失败，请检查开场白是否已正确设置。');
     console.error(e);
+  }finally{
+    trigger?.classList?.remove('is-busy');
+    sceneTransitionBusy = false;
   }
 }
 
