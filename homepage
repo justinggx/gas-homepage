@@ -1,5 +1,5 @@
 ```html
-<!-- v3.1.1 -->
+<!-- v3.1.2 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -885,7 +885,6 @@ body::after{
   position:fixed;
   inset:0;
   z-index:10020;
-  backdrop-filter:blur(2px);
   pointer-events:none;
   opacity:0;
   visibility:hidden;
@@ -899,51 +898,24 @@ body::after{
   content:"";
   position:absolute;
   inset:0;
-  background:
-    radial-gradient(circle at 50% 42%, rgba(201,170,114,.14), transparent 36%),
-    linear-gradient(to bottom, rgba(5,7,10,.38), rgba(5,7,10,.9));
+  background:rgba(5,7,10,.86);
+  backdrop-filter:blur(2px);
 }
-.scene-transition::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg, rgba(255,255,255,.09), transparent 38%, transparent 62%, rgba(255,255,255,.05));
-  opacity:.18;
-}
-.scene-transition.playing .transition-stage{
-  opacity:1;
-}
-.scene-transition.playing .camera-rig{
-  animation:camRigEnter .92s cubic-bezier(.22,.8,.18,1) forwards;
-}
-.scene-transition.playing .camera-lens{
-  animation:camLensPulse .92s cubic-bezier(.22,.8,.18,1) forwards;
-}
-.scene-transition.playing .focus-bracket{
-  animation:focusBracketLock .48s cubic-bezier(.24,.78,.22,1) forwards;
-}
+.scene-transition.playing .transition-stage{opacity:1}
+.scene-transition.playing .camera-rig{animation:camRigEnter .9s cubic-bezier(.22,.8,.18,1) forwards}
+.scene-transition.playing .camera-lens{animation:camLensPulse .9s cubic-bezier(.22,.8,.18,1) forwards}
+.scene-transition.playing .focus-bracket{animation:focusBracketLock .44s cubic-bezier(.24,.78,.22,1) forwards}
 .scene-transition.playing .focus-bracket.tl{animation-delay:.12s}
 .scene-transition.playing .focus-bracket.tr{animation-delay:.18s}
 .scene-transition.playing .focus-bracket.bl{animation-delay:.24s}
 .scene-transition.playing .focus-bracket.br{animation-delay:.3s}
-.scene-transition.playing .focus-line{
-  animation:focusSweep .55s ease-out .22s forwards;
-}
-.scene-transition.playing .transition-copy{
-  animation:copyReveal .62s ease-out .3s forwards;
-}
-.scene-transition.playing .camera-glint{
-  animation:glintSweep .62s ease-out .28s forwards;
-}
-.scene-transition.playing .shutter-sheen{
-  animation:shutterSheen .3s ease-out .58s forwards;
-}
-.scene-transition.playing .flash-layer{
-  animation:flashBurst .42s cubic-bezier(.16,.84,.2,1) .82s forwards;
-}
-.scene-transition.playing .film-grain{
-  animation:grainBlink .34s steps(2,end) .88s forwards;
-}
+.scene-transition.playing .focus-line{animation:focusSweep .56s ease-out .2s forwards}
+.scene-transition.playing .transition-copy{animation:copyReveal .62s ease-out .34s forwards}
+.scene-transition.playing .camera-glint{animation:glintSweep .6s ease-out .28s forwards}
+.scene-transition.playing .flash-layer{animation:flashBurst .42s cubic-bezier(.16,.84,.2,1) .95s forwards}
+.scene-transition.playing .film-grain{animation:grainBlink .34s steps(2,end) .98s forwards}
+.scene-transition.playing .rec-badge{animation:badgeReveal .3s ease-out .08s forwards}
+.scene-transition.playing .shutter-label{animation:badgeReveal .3s ease-out .18s forwards}
 .transition-stage{
   position:absolute;
   inset:0;
@@ -954,112 +926,125 @@ body::after{
 }
 .camera-rig{
   position:relative;
-  width:min(78vw, 560px);
-  aspect-ratio:1 / .72;
+  width:min(84vw, 720px);
+  aspect-ratio:1 / .7;
   opacity:0;
-  transform:scale(.84) translateY(14px);
+  transform:scale(.9) translateY(14px);
+}
+.camera-shell{
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(212,220,232,.12);
+  border-radius:22px;
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+  box-shadow:0 24px 80px rgba(0,0,0,.46), inset 0 0 0 1px rgba(201,170,114,.06);
+}
+.rec-badge,
+.shutter-label{
+  position:absolute;
+  top:18px;
+  padding:8px 12px;
+  border:1px solid rgba(212,220,232,.14);
+  background:rgba(7,9,12,.72);
+  color:#f3efe7;
+  font-size:.68rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  opacity:0;
+}
+.rec-badge{left:18px}
+.shutter-label{right:18px}
+.rec-dot{
+  display:inline-block;
+  width:8px;height:8px;border-radius:50%;
+  margin-right:8px;
+  background:#d9b37a;
+  box-shadow:0 0 12px rgba(217,179,122,.75);
 }
 .camera-vignette{
   position:absolute;
-  inset:-18%;
+  inset:-10%;
   border-radius:999px;
-  background:radial-gradient(circle, rgba(255,255,255,.04) 0%, rgba(255,255,255,0) 62%);
-  filter:blur(18px);
-  opacity:.75;
+  background:radial-gradient(circle, rgba(255,255,255,.05) 0%, rgba(255,255,255,0) 64%);
+  filter:blur(20px);
+  opacity:.8;
 }
 .camera-lens{
   position:absolute;
   left:50%;
   top:50%;
-  width:min(32vw, 210px);
+  width:min(34vw, 240px);
   aspect-ratio:1;
   transform:translate(-50%, -50%) scale(.88);
   border-radius:50%;
-  border:1px solid rgba(214,223,238,.28);
-  background:
-    radial-gradient(circle at 35% 35%, rgba(255,255,255,.28), rgba(255,255,255,.06) 20%, rgba(10,14,18,.9) 60%, rgba(3,4,7,.99) 100%);
-  box-shadow:
-    0 0 0 1px rgba(201,170,114,.14) inset,
-    0 0 0 16px rgba(255,255,255,.025) inset,
-    0 0 28px rgba(201,170,114,.1),
-    0 24px 80px rgba(0,0,0,.56);
+  border:2px solid rgba(214,223,238,.34);
+  background:radial-gradient(circle at 35% 35%, rgba(255,255,255,.3), rgba(255,255,255,.08) 18%, rgba(10,14,18,.92) 58%, rgba(2,4,6,1) 100%);
+  box-shadow:0 0 0 2px rgba(201,170,114,.16) inset, 0 0 0 18px rgba(255,255,255,.02) inset, 0 0 42px rgba(201,170,114,.14), 0 28px 90px rgba(0,0,0,.6);
 }
 .camera-lens::before,
 .camera-lens::after{
   content:"";
   position:absolute;
-  inset:12%;
   border-radius:50%;
 }
 .camera-lens::before{
-  border:1px solid rgba(212,220,232,.22);
+  inset:14%;
+  border:2px solid rgba(212,220,232,.24);
 }
 .camera-lens::after{
-  inset:27%;
-  background:radial-gradient(circle at 42% 38%, rgba(255,255,255,.12), rgba(255,255,255,0) 42%);
+  inset:30%;
+  background:radial-gradient(circle at 42% 38%, rgba(255,255,255,.22), rgba(255,255,255,0) 44%);
 }
 .camera-glint{
   position:absolute;
   top:16%;
-  left:21%;
-  width:56%;
+  left:20%;
+  width:58%;
   height:3px;
   border-radius:999px;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,.9), rgba(255,238,212,.65), transparent);
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.98), rgba(255,238,212,.78), transparent);
   opacity:0;
-  transform:translateX(-20%) rotate(-11deg);
-  filter:blur(.2px);
+  transform:translateX(-22%) rotate(-11deg);
 }
 .focus-bracket{
   position:absolute;
-  width:min(18vw, 118px);
-  height:min(18vw, 118px);
+  width:min(20vw, 132px);
+  height:min(20vw, 132px);
   opacity:0;
-  transform:scale(.7);
+  transform:scale(.78);
 }
 .focus-bracket::before,
 .focus-bracket::after{
   content:"";
   position:absolute;
-  background:linear-gradient(90deg, rgba(235,240,248,.98), rgba(201,170,114,.92));
-  box-shadow:0 0 12px rgba(255,245,230,.1);
+  background:linear-gradient(90deg, rgba(240,244,252,1), rgba(201,170,114,.95));
+  box-shadow:0 0 16px rgba(255,245,230,.16);
 }
-.focus-bracket::before{height:2px;width:48px}
-.focus-bracket::after{width:2px;height:48px}
-.focus-bracket.tl{top:8%;left:7%}
+.focus-bracket::before{height:3px;width:58px}
+.focus-bracket::after{width:3px;height:58px}
+.focus-bracket.tl{top:9%;left:7%}
 .focus-bracket.tl::before,.focus-bracket.tl::after{top:0;left:0}
-.focus-bracket.tr{top:8%;right:7%}
+.focus-bracket.tr{top:9%;right:7%}
 .focus-bracket.tr::before,.focus-bracket.tr::after{top:0;right:0}
-.focus-bracket.tr::before{right:0}
-.focus-bracket.tr::after{right:0}
-.focus-bracket.bl{bottom:8%;left:7%}
+.focus-bracket.bl{bottom:9%;left:7%}
 .focus-bracket.bl::before,.focus-bracket.bl::after{bottom:0;left:0}
-.focus-bracket.bl::before{left:0}
-.focus-bracket.bl::after{bottom:0}
-.focus-bracket.br{bottom:8%;right:7%}
+.focus-bracket.br{bottom:9%;right:7%}
 .focus-bracket.br::before,.focus-bracket.br::after{bottom:0;right:0}
 .focus-line{
   position:absolute;
   left:10%;
   right:10%;
   top:50%;
-  height:1px;
-  background:linear-gradient(90deg, transparent, rgba(245,242,236,.88), rgba(201,170,114,.95), transparent);
+  height:2px;
+  background:linear-gradient(90deg, transparent, rgba(245,242,236,.96), rgba(201,170,114,1), transparent);
   box-shadow:0 0 18px rgba(255,246,233,.34);
   opacity:0;
-  transform:scaleX(.2);
-}
-.shutter-sheen{
-  position:absolute;
-  inset:0;
-  border-radius:26px;
-  background:radial-gradient(circle at 50% 48%, rgba(255,255,255,.13), rgba(255,255,255,0) 40%);
-  opacity:0;
+  transform:scaleX(.16);
 }
 .transition-copy{
   position:absolute;
   left:50%;
-  bottom:-54px;
+  bottom:-64px;
   transform:translateX(-50%) translateY(12px);
   text-align:center;
   opacity:0;
@@ -1067,7 +1052,7 @@ body::after{
 .transition-copy .fr{
   display:block;
   font-family:"Cormorant Garamond",serif;
-  font-size:clamp(1.4rem,2.6vw,2rem);
+  font-size:clamp(1.55rem,2.9vw,2.2rem);
   letter-spacing:.18em;
   text-transform:uppercase;
   color:#f4efe7;
@@ -1077,9 +1062,9 @@ body::after{
   display:block;
   margin-top:10px;
   font-family:"Noto Serif SC",serif;
-  font-size:.78rem;
+  font-size:.82rem;
   letter-spacing:.28em;
-  color:rgba(212,220,232,.72);
+  color:rgba(232,238,246,.78);
 }
 .flash-layer,
 .film-grain{
@@ -1089,9 +1074,7 @@ body::after{
   pointer-events:none;
 }
 .flash-layer{
-  background:
-    radial-gradient(circle at 50% 45%, rgba(255,251,246,.98), rgba(255,248,239,.94) 20%, rgba(255,245,234,.62) 42%, rgba(255,241,225,0) 72%),
-    linear-gradient(180deg, rgba(255,252,248,.92), rgba(255,248,240,.68));
+  background:radial-gradient(circle at 50% 45%, rgba(255,251,246,.98), rgba(255,248,239,.94) 20%, rgba(255,245,234,.62) 42%, rgba(255,241,225,0) 72%), linear-gradient(180deg, rgba(255,252,248,.92), rgba(255,248,240,.68));
   mix-blend-mode:screen;
 }
 .film-grain{
@@ -1099,61 +1082,26 @@ body::after{
   background-size:170px;
   mix-blend-mode:soft-light;
 }
-@keyframes camRigEnter{
-  0%{opacity:0;transform:scale(.84) translateY(14px)}
-  28%{opacity:1}
-  100%{opacity:1;transform:scale(1) translateY(0)}
-}
-@keyframes camLensPulse{
-  0%{transform:translate(-50%, -50%) scale(.86);box-shadow:0 18px 60px rgba(0,0,0,.35)}
-  48%{transform:translate(-50%, -50%) scale(1.02)}
-  100%{transform:translate(-50%, -50%) scale(.985);box-shadow:0 0 0 1px rgba(201,170,114,.08) inset,0 0 0 14px rgba(255,255,255,.015) inset,0 18px 68px rgba(0,0,0,.52)}
-}
-@keyframes focusBracketLock{
-  0%{opacity:0;transform:scale(.7)}
-  100%{opacity:1;transform:scale(1)}
-}
-@keyframes focusSweep{
-  0%{opacity:0;transform:scaleX(.2)}
-  32%{opacity:.9}
-  100%{opacity:0;transform:scaleX(1)}
-}
-@keyframes copyReveal{
-  0%{opacity:0;transform:translateX(-50%) translateY(12px)}
-  100%{opacity:1;transform:translateX(-50%) translateY(0)}
-}
-@keyframes glintSweep{
-  0%{opacity:0;transform:translateX(-22%) rotate(-11deg)}
-  40%{opacity:.92}
-  100%{opacity:0;transform:translateX(16%) rotate(-11deg)}
-}
-@keyframes shutterSheen{
-  0%{opacity:0;transform:scale(.96)}
-  100%{opacity:1;transform:scale(1)}
-}
-@keyframes flashBurst{
-  0%{opacity:0}
-  12%{opacity:1}
-  46%{opacity:.92}
-  100%{opacity:0}
-}
-@keyframes grainBlink{
-  0%{opacity:0}
-  32%{opacity:.26}
-  100%{opacity:0}
-}
+@keyframes camRigEnter{0%{opacity:0;transform:scale(.9) translateY(14px)}30%{opacity:1}100%{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes camLensPulse{0%{transform:translate(-50%, -50%) scale(.86)}48%{transform:translate(-50%, -50%) scale(1.03)}100%{transform:translate(-50%, -50%) scale(.99)}}
+@keyframes focusBracketLock{0%{opacity:0;transform:scale(.78)}100%{opacity:1;transform:scale(1)}}
+@keyframes focusSweep{0%{opacity:0;transform:scaleX(.16)}30%{opacity:1}100%{opacity:0;transform:scaleX(1)}}
+@keyframes copyReveal{0%{opacity:0;transform:translateX(-50%) translateY(12px)}100%{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes glintSweep{0%{opacity:0;transform:translateX(-22%) rotate(-11deg)}40%{opacity:1}100%{opacity:0;transform:translateX(20%) rotate(-11deg)}}
+@keyframes flashBurst{0%{opacity:0}12%{opacity:1}46%{opacity:.96}100%{opacity:0}}
+@keyframes grainBlink{0%{opacity:0}32%{opacity:.28}100%{opacity:0}}
+@keyframes badgeReveal{0%{opacity:0;transform:translateY(-6px)}100%{opacity:1;transform:translateY(0)}}
 
 @media (prefers-reduced-motion: reduce){
   .scene-transition,
-  .scene-transition *{
-    animation:none !important;
-    transition:none !important;
-  }
-  .scene-transition.playing .flash-layer{opacity:.92}
+  .scene-transition *{animation:none !important;transition:none !important}
   .scene-transition.playing .transition-stage,
   .scene-transition.playing .camera-rig,
   .scene-transition.playing .focus-bracket,
-  .scene-transition.playing .transition-copy{opacity:1;transform:none}
+  .scene-transition.playing .transition-copy,
+  .scene-transition.playing .rec-badge,
+  .scene-transition.playing .shutter-label{opacity:1;transform:none}
+  .scene-transition.playing .flash-layer{opacity:.92}
 }
 
 /* ─── MAIN CONTENT spacing ─── */
@@ -1166,6 +1114,9 @@ body::after{
 <div class="scene-transition" id="sceneTransition" aria-hidden="true">
   <div class="transition-stage">
     <div class="camera-rig">
+      <div class="camera-shell"></div>
+      <div class="rec-badge"><span class="rec-dot"></span>visée</div>
+      <div class="shutter-label">capture</div>
       <div class="camera-vignette"></div>
       <div class="focus-bracket tl"></div>
       <div class="focus-bracket tr"></div>
@@ -1175,7 +1126,6 @@ body::after{
       <div class="camera-lens">
         <div class="camera-glint"></div>
       </div>
-      <div class="shutter-sheen"></div>
       <div class="transition-copy">
         <span class="fr">Ne bougez pas.</span>
         <span class="cn">别动。</span>
@@ -1197,7 +1147,7 @@ body::after{
       <span style="opacity:.35">·</span>
       <span>Curated Storyline Index</span>
     </div>
-    <div class="rule-right">v3.1.1 · 棠栀 Talia</div>
+    <div class="rule-right">v3.1.2 · 棠栀 Talia</div>
   </div>
   <div class="rule-divider"></div>
 
@@ -1681,7 +1631,7 @@ body::after{
 
   <footer class="footer">
     <span>Author · 棠栀 Talia</span>
-    <span>v3.1.1 · Gaspard de Valois · Dossier Archive</span>
+    <span>v3.1.2 · Gaspard de Valois · Dossier Archive</span>
   </footer>
 </div>
 
@@ -1755,7 +1705,7 @@ function playSceneTransition(){
       overlay.classList.remove('playing');
       overlay.classList.remove('active');
       resolve();
-    }, 1350);
+    }, 1600);
   });
 }
 
