@@ -1,0 +1,1501 @@
+```html
+<!-- v3.1.0 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gaspard de Valois · Dossier Archive</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080a;
+  --bg-2:#0b0d10;
+  --panel:#0e1117;
+  --panel-2:#13181f;
+  --panel-3:#181f28;
+  --line:rgba(200,210,225,.10);
+  --line-mid:rgba(200,210,225,.18);
+  --line-strong:rgba(200,210,225,.28);
+  --text:#edf1f8;
+  --text-2:#bcc8d8;
+  --text-3:#6e7f93;
+  --silver:#d4dce8;
+  --silver-2:#9aaabb;
+  --gold:#c9aa72;
+  --gold-soft:rgba(201,170,114,.12);
+  --danger:#a76565;
+  --shadow:0 32px 80px rgba(0,0,0,.6);
+  --max:1440px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  color:var(--text);
+  font-family:"Inter",sans-serif;
+  background:#07080a;
+  overflow-x:hidden;
+  line-height:1;
+}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer}
+
+/* ─── GRAIN OVERLAY ─── */
+body::after{
+  content:"";
+  position:fixed;inset:0;
+  pointer-events:none;z-index:9999;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;
+}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* full-bleed photo */
+.hero-photo{
+  position:absolute;inset:0;
+  background:
+    url('https://i.postimg.cc/TYR9xMDc/expansion-20260413215109088.png')
+    center 18% / cover no-repeat;
+  transform-origin:center top;
+}
+/* cinematic colour grade */
+.hero-photo::after{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to right,  rgba(4,5,7,.82) 0%, rgba(4,5,7,.46) 42%, rgba(4,5,7,.20) 68%, rgba(4,5,7,.55) 100%),
+    linear-gradient(to bottom, rgba(4,5,7,.12) 0%, rgba(4,5,7,.05) 38%, rgba(4,5,7,.72) 78%, rgba(4,5,7,.97) 100%);
+  mix-blend-mode:multiply;
+}
+/* subtle vignette */
+.hero-photo::before{
+  content:"";
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%, transparent 40%, rgba(4,5,7,.55) 100%);
+}
+
+/* top rule */
+.hero-rule{
+  position:relative;z-index:2;
+  padding:28px 48px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.rule-left{
+  display:flex;align-items:center;gap:12px;
+  color:var(--text-3);
+  font-size:.68rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+}
+.rule-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 8px rgba(201,170,114,.5);
+}
+.rule-right{
+  color:var(--text-3);
+  font-size:.68rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+}
+.rule-divider{
+  position:relative;z-index:2;
+  margin:16px 48px 0;
+  height:1px;
+  background:linear-gradient(to right, rgba(201,170,114,.22), rgba(200,210,225,.10) 60%, transparent);
+}
+
+/* main copy block */
+.hero-body{
+  position:relative;z-index:2;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:0 48px 52px;
+}
+
+.hero-eyebrow{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:20px;
+}
+.eyebrow-line{
+  width:36px;height:1px;
+  background:var(--gold);
+  opacity:.7;
+}
+.eyebrow-text{
+  color:var(--gold);
+  font-size:.7rem;
+  font-weight:500;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+}
+
+.hero-name{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(4rem,8.5vw,8.2rem);
+  font-weight:700;
+  line-height:.88;
+  letter-spacing:.035em;
+  text-transform:uppercase;
+  color:#f4f7fc;
+  text-shadow:0 4px 40px rgba(0,0,0,.5);
+}
+.hero-name-cn{
+  display:block;
+  margin-top:14px;
+  font-family:"Noto Serif SC",serif;
+  font-size:clamp(.9rem,1.6vw,1.2rem);
+  font-weight:300;
+  letter-spacing:.5em;
+  color:var(--silver-2);
+  text-shadow:none;
+}
+
+/* horizontal metadata strip */
+.hero-meta{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  margin-top:28px;
+  border-top:1px solid rgba(200,210,225,.10);
+  border-bottom:1px solid rgba(200,210,225,.10);
+  padding:0;
+  align-items:stretch;
+}
+.meta-cell{
+  padding:12px 22px;
+  border-right:1px solid rgba(200,210,225,.12);
+  border-bottom:1px solid rgba(200,210,225,.10);
+  min-width:0;
+}
+.meta-cell:nth-child(3n){border-right:none}
+.meta-cell:nth-child(n+4){border-bottom:none}
+.meta-k{
+  font-size:.6rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--text-3);
+  margin-bottom:5px;
+}
+.meta-v{
+  font-family:"Cormorant Garamond",serif;
+  font-size:.98rem;
+  color:var(--silver);
+  letter-spacing:.04em;
+  word-break:keep-all;
+  overflow-wrap:anywhere;
+}
+
+/* desc block */
+.hero-desc-row{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,.7fr);
+  gap:40px;
+  margin-top:26px;
+  align-items:end;
+}
+.hero-desc{
+  font-family:"Noto Serif SC",serif;
+  font-size:.95rem;
+  line-height:2;
+  color:var(--text-2);
+  text-shadow:0 1px 8px rgba(0,0,0,.9);
+}
+.hero-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:flex-end;
+}
+.hero-tag{
+  padding:7px 14px;
+  border-radius:3px;
+  border:1px solid rgba(200,210,225,.12);
+  background:rgba(255,255,255,.04);
+  color:var(--text-2);
+  font-size:.76rem;
+  letter-spacing:.06em;
+  backdrop-filter:blur(8px);
+}
+
+/* scroll cue */
+.hero-scroll{
+  position:absolute;
+  bottom:24px;right:48px;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  color:var(--text-3);
+  font-size:.6rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+}
+.scroll-track{
+  width:1px;height:42px;
+  background:linear-gradient(to bottom, var(--gold), transparent);
+  opacity:.5;
+}
+
+/* ─── PAGE WRAPPER ─── */
+.page{
+  width:min(var(--max), calc(100% - 28px));
+  margin:0 auto;
+  position:relative;z-index:1;
+}
+
+/* ─── SECTION HEADER ─── */
+.sec-header{
+  display:flex;
+  align-items:baseline;
+  gap:18px;
+  margin-bottom:24px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--line);
+}
+.sec-header h2{
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.7rem;
+  font-weight:600;
+  letter-spacing:.04em;
+  color:var(--silver);
+}
+.sec-en{
+  font-size:.68rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--text-3);
+}
+
+/* ─── INTEL BAND (replaces ribbon) ─── */
+.intel-band{
+  margin:22px 0 0;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:0;
+  border:1px solid var(--line);
+  border-radius:4px;
+  overflow:hidden;
+}
+.intel-cell{
+  padding:24px 26px 22px;
+  border-right:1px solid var(--line);
+  background:var(--panel);
+  position:relative;
+}
+.intel-cell:last-child{border-right:none}
+.intel-cell::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(to right, var(--gold), transparent);
+  opacity:.4;
+}
+.intel-num{
+  font-family:"Cormorant Garamond",serif;
+  font-size:2.2rem;
+  font-weight:600;
+  color:var(--gold);
+  opacity:.35;
+  line-height:1;
+  margin-bottom:10px;
+}
+.intel-title{
+  font-size:.7rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--silver-2);
+  margin-bottom:14px;
+}
+.intel-body{
+  color:var(--text-2);
+  font-size:.86rem;
+  line-height:1.85;
+}
+.intel-body p{margin-bottom:6px}
+.intel-body ul{padding-left:1.1em}
+.intel-body li{margin-bottom:6px}
+.perm-row{
+  display:flex;align-items:flex-start;gap:10px;
+  margin-bottom:8px;
+}
+.perm-badge{
+  flex-shrink:0;
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.62rem;margin-top:1px;
+}
+.perm-badge.allow{color:#8cc195;border:1px solid rgba(140,193,149,.3);background:rgba(140,193,149,.08)}
+.perm-badge.deny{color:#d19090;border:1px solid rgba(209,144,144,.3);background:rgba(209,144,144,.08)}
+.perm-badge.info{color:var(--text-3);border:1px solid var(--line);background:rgba(255,255,255,.04)}
+
+/* ─── ARCHIVE SECTION ─── */
+.archive{
+  margin:22px 0 0;
+}
+.archive-nav{
+  border:1px solid var(--line);
+  border-radius:4px;
+  overflow:hidden;
+  background:var(--panel);
+}
+.archive-nav-head{
+  padding:18px 22px 14px;
+  border-bottom:1px solid var(--line);
+}
+.archive-nav-head h2{
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.5rem;font-weight:600;
+  color:var(--silver);letter-spacing:.04em;
+}
+.archive-nav-head p{
+  margin-top:6px;
+  color:var(--text-3);font-size:.78rem;line-height:1.7;
+}
+.nav-stack{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+}
+.arc-btn{
+  text-align:left;width:100%;
+  padding:18px 20px 16px;
+  border:none;
+  border-right:1px solid var(--line);
+  background:transparent;
+  color:var(--text-2);
+  transition:.2s ease;
+  position:relative;
+}
+.arc-btn:last-child{border-right:none}
+.arc-btn::after{
+  content:"";
+  position:absolute;left:0;right:0;bottom:0;
+  height:2px;background:var(--gold);
+  opacity:0;transition:.2s;
+}
+.arc-btn:hover{background:rgba(255,255,255,.03)}
+.arc-btn.active{background:rgba(201,170,114,.06)}
+.arc-btn.active::after{opacity:1}
+.arc-btn small{
+  display:block;margin-bottom:6px;
+  font-size:.62rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--text-3);
+}
+.arc-btn.active small{color:var(--gold);opacity:.8}
+.arc-btn strong{
+  display:block;
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.22rem;font-weight:600;
+  color:var(--silver);letter-spacing:.02em;
+  margin-bottom:4px;
+}
+.arc-btn span{
+  display:block;margin-top:4px;
+  font-size:.76rem;color:var(--text-3);line-height:1.5;
+}
+.arc-suben{
+  display:none;
+  margin-top:4px;
+  font-style:normal;
+  color:var(--silver-2);
+  font-size:.62rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.arc-count{
+  display:inline-block;margin-top:8px;
+  padding:4px 10px;
+  border-radius:3px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.03);
+  color:var(--text-3);
+  font-size:.68rem;letter-spacing:.08em;
+}
+.arc-btn.active .arc-count{
+  border-color:rgba(201,170,114,.22);
+  background:rgba(201,170,114,.08);
+  color:var(--gold);
+}
+
+/* drawer that expands below nav */
+.archive-drawer{
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .38s cubic-bezier(.4,0,.2,1);
+}
+.archive-drawer.open{
+  max-height:9999px;
+}
+.archive-drawer-inner{
+  padding-top:14px;
+  display:grid;
+  gap:16px;
+}
+
+.archive-main{display:grid;gap:16px}
+
+/* panels */
+.arc-panel{display:none;gap:14px}
+.arc-panel.active{display:grid}
+
+.arc-head{
+  border:1px solid var(--line);
+  border-radius:4px;
+  background:var(--panel);
+  padding:22px 24px 20px;
+  position:relative;overflow:hidden;
+}
+.arc-head::after{
+  content:"";
+  position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right, var(--gold), transparent);
+  opacity:.2;
+}
+.arc-head-top{
+  display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;
+}
+.arc-head-top h3{
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.9rem;font-weight:600;
+  letter-spacing:.04em;color:var(--silver);
+}
+.arc-head-top .en{
+  color:var(--text-3);font-size:.68rem;
+  letter-spacing:.22em;text-transform:uppercase;
+}
+.arc-head-meta{margin:12px 0 0;display:flex;gap:8px;flex-wrap:wrap}
+.arc-chip{
+  padding:5px 10px;border-radius:3px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.03);
+  color:var(--text-2);font-size:.72rem;letter-spacing:.04em;
+}
+.arc-head p{
+  margin:12px 0 0;max-width:860px;
+  color:var(--text-2);font-size:.88rem;line-height:1.85;
+}
+
+/* ─── DOSSIER CARDS ─── */
+.dossier-list{display:grid;gap:12px}
+.dossier{
+  border:1px solid var(--line);
+  border-radius:4px;
+  background:var(--panel);
+  overflow:hidden;
+  transition:border-color .22s;
+}
+
+.dossier-top{
+  display:grid;
+  grid-template-columns:280px minmax(0,1fr);
+  gap:0;
+}
+.dossier-cover{
+  position:relative;
+  min-height:200px;overflow:hidden;
+}
+.dossier-cover img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(.85) saturate(.88);
+  transition:transform .5s cubic-bezier(.16,1,.3,1),filter .3s;
+}
+.dossier-cover::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg, rgba(7,8,10,0) 50%, rgba(7,8,10,.55) 100%),
+             linear-gradient(0deg, rgba(7,8,10,.75) 0%, transparent 45%);
+}
+.case-no{
+  position:absolute;top:12px;left:12px;z-index:2;
+  padding:5px 10px;
+  border-radius:2px;
+  border:1px solid rgba(201,170,114,.25);
+  background:rgba(7,8,10,.55);
+  color:var(--gold);
+  font-size:.62rem;letter-spacing:.22em;
+  text-transform:uppercase;backdrop-filter:blur(8px);
+}
+.cover-caption{
+  position:absolute;left:12px;right:12px;bottom:12px;z-index:2;
+}
+.cover-caption small{
+  display:block;margin-bottom:4px;
+  color:var(--silver-2);font-size:.62rem;
+  letter-spacing:.2em;text-transform:uppercase;
+}
+.cover-caption strong{
+  display:block;
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.18rem;font-weight:600;
+  line-height:1.2;color:#f4f7fc;
+}
+
+.dossier-body{
+  padding:18px 20px 16px;
+  display:flex;flex-direction:column;
+  border-left:1px solid var(--line);
+}
+.dossier-meta{
+  display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;
+}
+.meta-pill{
+  padding:4px 9px;border-radius:2px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.03);
+  color:var(--text-3);font-size:.68rem;letter-spacing:.05em;
+}
+.dossier-summary{
+  font-family:"Noto Serif SC",serif;
+  font-size:.88rem;line-height:1.95;color:var(--text-2);
+  flex:1;
+}
+.dossier-actions{
+  display:flex;align-items:center;
+  justify-content:space-between;gap:10px;
+  margin-top:14px;padding-top:12px;
+  border-top:1px solid var(--line);
+  flex-wrap:wrap;
+}
+
+/* ─── DESKTOP HOVER LOCK ─── */
+@media (min-width: 769px){
+  .dossier,
+  .dossier:hover,
+  .dossier:focus,
+  .dossier:focus-within,
+  .dossier:active{
+    transform:none !important;
+    scale:1 !important;
+  }
+
+  .dossier-cover img,
+  .dossier:hover .dossier-cover img,
+  .dossier:focus .dossier-cover img,
+  .dossier:focus-within .dossier-cover img,
+  .dossier:active .dossier-cover img{
+    transform:none !important;
+    scale:1 !important;
+    filter:brightness(.85) saturate(.88) !important;
+  }
+}
+.hint{color:var(--text-3);font-size:.72rem;letter-spacing:.04em;line-height:1.6}
+.hint-alert{
+  display:inline;
+  padding:0;
+  border:none;
+  background:none;
+  color:#e7c27d;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-shadow:0 0 8px rgba(201,170,114,.22);
+  animation:hintPulse 1.25s ease-in-out infinite;
+}
+@keyframes hintPulse{
+  0%,100%{
+    opacity:1;
+    color:#e7c27d;
+    text-shadow:0 0 6px rgba(201,170,114,.16);
+  }
+  50%{
+    opacity:.38;
+    color:#ffd78f;
+    text-shadow:0 0 14px rgba(255,215,143,.34), 0 0 22px rgba(255,215,143,.18);
+  }
+}
+.action-row{display:flex;gap:8px;flex-wrap:wrap}
+.action-row.action-right{width:100%;justify-content:flex-end}
+
+.btn{
+  padding:8px 16px;
+  border-radius:999px;
+  border:1px solid rgba(214,223,238,.18);
+  background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+  color:#e7edf7;
+  font-size:.76rem;letter-spacing:.06em;
+  transition:.2s;
+}
+.btn:hover{
+  border-color:rgba(214,223,238,.3);
+  background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+  box-shadow:0 10px 24px rgba(0,0,0,.22);
+}
+.btn-ghost{
+  padding:8px 16px;
+  border-radius:2px;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--text-2);
+  font-size:.76rem;letter-spacing:.06em;
+  transition:.2s;
+}
+.btn-ghost:hover{background:rgba(255,255,255,.04);border-color:var(--line-mid)}
+
+.hidden-grid{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:14px;
+}
+.hidden-box{
+  border:1px solid var(--line);border-radius:3px;
+  padding:14px 16px;background:rgba(255,255,255,.02);
+}
+.hidden-box h4{
+  margin-bottom:8px;
+  font-size:.66rem;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--silver-2);
+}
+.hidden-box p,.hidden-box li{
+  margin-bottom:6px;font-size:.84rem;line-height:1.82;color:var(--text-2);
+}
+.hidden-box ul{margin:0;padding-left:1.1em}
+
+/* ─── CHANGELOG ─── */
+.changelog{
+  margin:16px 0 0;
+  border:1px solid var(--line);border-radius:4px;
+  background:var(--panel);overflow:hidden;
+}
+.changelog-head{
+  padding:16px 22px 14px;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:baseline;gap:14px;
+}
+.changelog-head h3{
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.5rem;font-weight:600;color:var(--silver);
+}
+.changelog-row{
+  display:grid;grid-template-columns:110px 1fr;gap:14px;
+  padding:12px 22px;border-bottom:1px solid var(--line);
+}
+.changelog-row:last-child{border-bottom:none}
+.changelog-row time{color:var(--silver-2);font-size:.76rem;letter-spacing:.12em}
+.changelog-row p{color:var(--text-2);font-size:.85rem;line-height:1.8}
+
+/* ─── FOOTER ─── */
+.footer{
+  margin:16px 0 0;
+  padding:20px 0 40px;
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  color:var(--text-3);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  border-top:1px solid var(--line);
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1100px){
+  .intel-band{grid-template-columns:1fr}
+  .intel-cell{border-right:none;border-bottom:1px solid var(--line)}
+  .intel-cell:last-child{border-bottom:none}
+}
+@media(max-width:900px){
+  .hero-rule,.rule-divider,.hero-body{padding-left:28px;padding-right:28px}
+  .hero-photo{background-position:58% 18%}
+  .hero-desc-row{grid-template-columns:1fr;gap:18px}
+  .hero-tags{justify-content:flex-start}
+}
+@media(max-width:540px){
+  .dossier-top{grid-template-columns:1fr}
+  .dossier-cover{min-height:220px}
+  .dossier-body{border-left:none;border-top:1px solid var(--line)}
+}
+@media (max-width:768px) and (hover:none) and (pointer:coarse){
+  .hero{
+    min-height:720px;
+    height:auto;
+  }
+  .hero-rule,.rule-divider,.hero-body{padding-left:20px;padding-right:20px}
+  .hero-rule{padding-top:20px;gap:12px;align-items:flex-start}
+  .rule-left{flex-wrap:wrap;gap:8px;font-size:.58rem;letter-spacing:.16em;max-width:100%}
+  .rule-right{display:none}
+  .rule-divider{margin-top:12px}
+  .hero-photo{
+    background:
+      url('https://i.postimg.cc/cL0g8m1j/banana-20260407-130439.jpg')
+      72% 10% / 112% auto no-repeat;
+    transform:none !important;
+  }
+  .hero-body{
+    justify-content:flex-end;
+    padding-top:280px;
+    padding-bottom:24px;
+  }
+  .hero-eyebrow{margin-bottom:14px;gap:10px}
+  .eyebrow-line{width:24px}
+  .eyebrow-text{font-size:.62rem;letter-spacing:.2em}
+  .hero-name{font-size:clamp(2.8rem,13vw,4.4rem);line-height:.92}
+  .hero-name-cn{margin-top:10px;font-size:.82rem;letter-spacing:.22em;line-height:1.5}
+  .hero-meta{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    padding:0;
+    border-top:1px solid rgba(200,210,225,.10);
+    border-bottom:none;
+    align-items:stretch;
+  }
+  .meta-cell{
+    padding:10px 10px;
+    border-right:1px solid rgba(200,210,225,.10);
+    border-bottom:1px solid rgba(200,210,225,.10);
+    background:rgba(8,10,14,.42);
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    min-height:54px;
+  }
+  .meta-cell:nth-child(3n){border-right:none}
+  .meta-cell:nth-child(n+4){border-bottom:none}
+  .meta-k{font-size:.52rem;letter-spacing:.12em}
+  .meta-v{
+    font-size:.76rem;
+    line-height:1.24;
+    word-break:keep-all;
+    overflow-wrap:normal;
+    text-wrap:balance;
+  }
+  .hero-desc{font-size:.88rem;line-height:1.9}
+  .hero-tags{gap:6px}
+  .hero-tag{padding:6px 10px;font-size:.72rem;background:rgba(8,10,14,.38)}
+  .hero-scroll{display:none}
+  .archive-nav-head{padding:14px 16px 12px}
+  .archive-nav-head h2{font-size:1.28rem}
+  .archive-nav-head p{font-size:.74rem}
+  .nav-stack{grid-template-columns:1fr;gap:0;padding:0}
+  .arc-btn{border-right:none;border-bottom:1px solid var(--line);padding:14px 16px 13px;min-height:auto;display:block}
+  .arc-btn:last-child{border-bottom:none}
+  .arc-btn::after{bottom:auto;top:0;height:2px}
+  .arc-btn small{margin-bottom:6px;font-size:.62rem;letter-spacing:.2em}
+  .arc-btn strong{display:inline-block;font-size:1.05rem;line-height:1.2;margin-bottom:0;vertical-align:baseline}
+  .arc-btn span{display:none}
+  .arc-suben{display:inline-block;margin-left:8px;vertical-align:baseline}
+  .arc-count{display:block;font-size:.64rem;padding:3px 8px;margin-top:8px;width:auto;text-align:left}
+  .archive-drawer-inner{padding-top:10px;gap:12px}
+  .arc-head{display:none}
+  .dossier{cursor:pointer}
+  .dossier-cover{min-height:auto;aspect-ratio:21 / 9}
+  .dossier-body{display:none;padding:14px 14px 13px}
+  .dossier.expanded .dossier-body{display:flex}
+  .cover-caption{left:10px;right:10px;bottom:10px}
+  .cover-caption small{font-size:.58rem;letter-spacing:.16em}
+  .cover-caption strong{font-size:1.06rem}
+  .case-no{top:10px;left:10px;font-size:.58rem;padding:4px 8px}
+  .dossier-meta{gap:5px;margin-bottom:8px}
+  .meta-pill{font-size:.64rem;padding:4px 7px}
+  .dossier-summary{font-size:.84rem;line-height:1.82}
+  .dossier-actions{flex-direction:column;align-items:flex-start;gap:12px;margin-top:12px;padding-top:10px}
+  .hint{font-size:.7rem;line-height:1.55}
+  .hint-alert{
+    width:auto;
+    min-height:0;
+    text-align:left;
+    padding:0;
+    letter-spacing:.05em;
+  }
+  .arc-panel[data-arc-panel="meet"] .hint{display:none}
+  .action-row{width:100%}
+  .btn{
+    width:100%;
+    min-height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:.82rem;
+    border-radius:999px;
+    padding:10px 18px;
+    border:1px solid rgba(214,223,238,.16);
+    background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+    color:#edf2fa;
+    box-shadow:0 10px 24px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .intel-cell{padding:18px 16px 16px}
+  .intel-num{font-size:1.8rem;margin-bottom:8px}
+  .intel-title{font-size:.66rem;letter-spacing:.18em;margin-bottom:10px}
+  .intel-body{font-size:.82rem;line-height:1.78}
+  .changelog-head{padding:14px 16px 12px;gap:10px}
+  .changelog-head h3{font-size:1.32rem}
+  .changelog-row{grid-template-columns:1fr;gap:4px;padding:10px 16px}
+  .changelog-row time{font-size:.7rem}
+  .changelog-row p{font-size:.8rem;line-height:1.7}
+  .footer{padding:16px 0 32px;font-size:.62rem;letter-spacing:.1em}
+}
+@media (max-width:480px) and (hover:none) and (pointer:coarse){
+  .page{width:calc(100% - 12px)}
+  .hero{
+    min-height:620px;
+  }
+  .hero-rule,.rule-divider,.hero-body{padding-left:14px;padding-right:14px}
+  .hero-photo{
+    background:
+      url('https://i.postimg.cc/cL0g8m1j/banana-20260407-130439.jpg')
+      74% 8% / 118% auto no-repeat;
+  }
+  .hero-body{padding-top:200px;padding-bottom:18px}
+  .hero-name{font-size:2.46rem}
+  .hero-name-cn{font-size:.76rem;letter-spacing:.14em}
+  .hero-meta{grid-template-columns:repeat(3,1fr)}
+  .meta-cell,.meta-cell:first-child,.meta-cell:last-child{padding:8px 7px;min-height:52px}
+  .meta-cell:nth-child(3n){border-right:none}
+  .meta-cell:nth-child(n+4){border-bottom:none}
+  .meta-k{font-size:.48rem;letter-spacing:.1em}
+  .meta-v{font-size:.72rem;line-height:1.18}
+  .hero-desc{font-size:.84rem;line-height:1.82}
+  .hero-tag{font-size:.68rem;padding:5px 8px}
+  .archive{margin-top:16px}
+  .archive-nav-head{padding:12px 14px 10px}
+  .nav-stack{gap:0;padding:0}
+  .arc-btn{padding:12px 14px;min-height:auto}
+  .arc-btn small{font-size:.62rem}
+  .arc-btn strong{display:inline-block;font-size:1rem}
+  .arc-suben{display:inline-block;margin-left:6px;font-size:.56rem;letter-spacing:.14em}
+  .arc-count{font-size:.62rem;padding:3px 8px}
+  .archive-drawer-inner{padding-top:8px}
+  .dossier-cover{min-height:auto;aspect-ratio:21 / 9}
+  .cover-caption strong{font-size:.98rem}
+  .dossier-body{padding:12px}
+  .dossier-summary{font-size:.8rem;line-height:1.78}
+  .btn{min-height:46px}
+  .intel-cell{padding:16px 14px 14px}
+  .changelog-head,.changelog-row{padding-left:14px;padding-right:14px}
+}
+
+/* ─── STAR CANVAS ─── */
+#starCanvas{
+  position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.32;
+}
+
+/* ─── MAIN CONTENT spacing ─── */
+.main-content{padding:22px 0 0}
+</style>
+</head>
+<body>
+<canvas id="starCanvas"></canvas>
+
+<!-- ══════════════════════════════════ HERO ══════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-photo"></div>
+
+  <div class="hero-rule">
+    <div class="rule-left">
+      <span class="rule-dot"></span>
+      <span>Dossier Archive</span>
+      <span style="opacity:.35">·</span>
+      <span>Curated Storyline Index</span>
+    </div>
+    <div class="rule-right">v3.2.4 · 棠栀 Talia</div>
+  </div>
+  <div class="rule-divider"></div>
+
+  <div class="hero-body">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">Valois Media Group · Paris</span>
+    </div>
+
+    <h1 class="hero-name">
+      Gaspard<br>de Valois
+      <span class="hero-name-cn">加斯帕尔 · 德 · 瓦卢瓦</span>
+    </h1>
+
+    <div class="hero-meta">
+      <div class="meta-cell">
+        <div class="meta-k">Born</div>
+        <div class="meta-v">1985.04.02</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-k">Height</div>
+        <div class="meta-v">188 cm</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-k">Type</div>
+        <div class="meta-v">Dominant Alpha</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-k">Feature</div>
+        <div class="meta-v">铂金短发 · 金丝眼镜</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-k">Scent</div>
+        <div class="meta-v">冷香调 · 香槟底色</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-k">Empire</div>
+        <div class="meta-v">Valois Media Group</div>
+      </div>
+    </div>
+
+    <div class="hero-desc-row">
+      <p class="hero-desc">
+        旗下 Valois Media Group 被称为「世界之嘴」，凡不合他意志的声音，皆被压得干干净净。<br>
+        铂金短发，金丝眼镜，冷香若有若无，笑意像一份尚未盖章的危险公文。<br>
+        整个巴黎都说，靠近他一寸，就得付出一里的代价。
+      </p>
+      <div class="hero-tags">
+        <span class="hero-tag">铂金短发</span>
+        <span class="hero-tag">法国旧贵族</span>
+        <span class="hero-tag">媒体帝国</span>
+        <span class="hero-tag">Dominant Alpha</span>
+        <span class="hero-tag">188 cm</span>
+        <span class="hero-tag">狐狸型人格</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <span class="scroll-track"></span>
+  </div>
+</section>
+<!-- ══════════════════════════════════ /HERO ══════════════════════════════════ -->
+
+<div class="page main-content">
+
+  <!-- ── ARCHIVE ── -->
+  <section class="archive">
+    <div class="archive-nav">
+      <div class="archive-nav-head">
+        <h2>Archive</h2>
+        <p>不同线路，不同叙事重力。</p>
+      </div>
+      <div class="nav-stack">
+        <button class="arc-btn" data-arc="meet" onclick="toggleArc('meet',this)">
+          <small>Cabinet 01</small>
+          <strong>初见线</strong>
+          <em class="arc-suben">FIRST ENCOUNTER</em>
+          <span>交错时间线下的初次相遇</span>
+          <span class="arc-count">3 dossiers</span>
+        </button>
+        <button class="arc-btn" data-arc="ex" onclick="toggleArc('ex',this)">
+          <small>Cabinet 02</small>
+          <strong>前男友线</strong>
+          <em class="arc-suben">EX-LOVER</em>
+          <span>重逢、旧天气、没收好的后遗症。</span>
+          <span class="arc-count">2 dossiers</span>
+        </button>
+        <button class="arc-btn" data-arc="abo" onclick="toggleArc('abo',this)">
+          <small>Cabinet 03</small>
+          <strong>ABO线</strong>
+          <em class="arc-suben">ABO WORLD</em>
+          <span>冷调香槟的信息素之下</span>
+          <span class="arc-count">2 dossiers</span>
+        </button>
+        <button class="arc-btn" data-arc="ent" onclick="toggleArc('ent',this)">
+          <small>Cabinet 04</small>
+          <strong>娱乐圈线</strong>
+          <em class="arc-suben">SHOWBIZ</em>
+          <span>聚光灯下的碰瓷与失控</span>
+          <span class="arc-count">2 dossiers</span>
+        </button>
+      </div>
+      <!-- expandable drawer -->
+      <div class="archive-drawer" id="archive-drawer">
+        <div class="archive-drawer-inner">
+
+      <!-- 初见线 -->
+      <div class="arc-panel" data-arc-panel="meet">
+        <div class="arc-head">
+          <div class="arc-head-top">
+            <h3>初见线</h3>
+            <span class="en">First Encounter</span>
+          </div>
+          <div class="arc-head-meta">
+            <span class="arc-chip">开场白 1—3</span>
+            <span class="arc-chip">陌生关系切入</span>
+            <span class="arc-chip">媒体 / 商战 / 意外同框</span>
+          </div>
+          <p>所有的刚好，都始于一场不期而遇。风遇山止，船到岸停，他恰好遇见你。</p>
+        </div>
+
+        <div class="dossier-list">
+          <article class="dossier" data-case="1">
+            <div class="dossier-top">
+              <div class="dossier-cover">
+                <img src="https://i.postimg.cc/jjcC6PLd/kai-chang-bai1.png" alt="开场白1">
+                <div class="case-no">Case 01</div>
+                <div class="cover-caption">
+                  <small>Media Storm</small>
+                  <strong>舆情风波 · 装货资本家</strong>
+                </div>
+              </div>
+              <div class="dossier-body">
+                <div class="dossier-meta">
+                  <span class="meta-pill">初见线</span>
+                  <span class="meta-pill">Stage 1</span>
+                  <span class="meta-pill">舆情 / 电话 / 我骂我老板？！</span>
+                </div>
+                <div class="dossier-summary">
+                  求职求疯了，大骂巴黎霸总是没心没肺的装货后，他成了你终面的面试官。即便你删帖速度堪比逃荒，匿名发帖的IP还是被扒了出来。面试时，他眼神玩味：“昨晚你骂的，那个罪该万死的资本家……是在说我？”
+                </div>
+                <div class="dossier-actions">
+                  <div class="action-row action-right">
+                    <button class="btn" onclick="jmp(1)">进入场景</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="dossier" data-case="2">
+            <div class="dossier-top">
+              <div class="dossier-cover">
+                <img src="https://i.postimg.cc/KzYj0jMQ/kai-chang-bai2.jpg" alt="开场白2">
+                <div class="case-no">Case 02</div>
+                <div class="cover-caption">
+                  <small>The Memorandum</small>
+                  <strong>Renard 备忘录 · 最后一张牌</strong>
+                </div>
+              </div>
+              <div class="dossier-body">
+                <div class="dossier-meta">
+                  <span class="meta-pill">初见线</span>
+                  <span class="meta-pill">Stage 1</span>
+                  <span class="meta-pill">商战 / 私宴 / 我找你救我你说你要泡我？</span>
+                </div>
+                <div class="dossier-summary">
+                  所有人都说，Gaspard de Valois这种人，你靠近一寸，就得付出一里的代价。你听进去了，但还是把自己送到了他面前。水晶灯下，他无框眼镜背后的狐狸眼扫过你的脸：“谈正事之前，先陪我喝完这杯香槟？”
+                </div>
+                <div class="dossier-actions">
+                  <div class="action-row action-right">
+                    <button class="btn" onclick="jmp(2)">进入场景</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="dossier" data-case="3">
+            <div class="dossier-top">
+              <div class="dossier-cover">
+                <img src="https://i.postimg.cc/hjGv2vd1/kai-chang-bai3.jpg" alt="开场白3">
+                <div class="case-no">Case 03</div>
+                <div class="cover-caption">
+                  <small>Wrong Door</small>
+                  <strong>订婚前夜 · 踹错的门</strong>
+                </div>
+              </div>
+              <div class="dossier-body">
+                <div class="dossier-meta">
+                  <span class="meta-pill">初见线</span>
+                  <span class="meta-pill">Stage 1</span>
+                  <span class="meta-pill">误闯 / 偷拍 / 我说我捉奸捉错人了你信吗？</span>
+                </div>
+                <div class="dossier-summary">
+                  订婚前夜，你收到一条未婚夫出轨的偷拍视频。等你踹开酒店房门，床上没有狗男人，只有一个更不能惹的陌生男人。不对。这不是你的未婚夫。这他爹的是谁？
+                </div>
+                <div class="dossier-actions">
+                  <div class="action-row action-right">
+                    <button class="btn" onclick="jmp(3)">进入场景</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- 前男友线 -->
+      <div class="arc-panel" data-arc-panel="ex">
+        <div class="arc-head">
+          <div class="arc-head-top">
+            <h3>前男友线</h3>
+            <span class="en">Ex-Lover</span>
+          </div>
+          <div class="arc-head-meta">
+            <span class="arc-chip">开场白 4—5</span>
+            <span class="arc-chip">旧情 / 重逢</span>
+            <span class="arc-chip">六年 / 婚礼 / 没说完的话</span>
+          </div>
+          <p>曾经潦草收场，带着不甘与遗憾，各自向前，把心事藏进晚风，把思念压进岁月。爱意从未彻底消散，只是悄悄蛰伏，等一场重逢。</p>
+        </div>
+
+        <div class="dossier-list">
+          <article class="dossier" data-case="4">
+            <div class="dossier-top">
+              <div class="dossier-cover">
+                <img src="https://i.postimg.cc/cHJCFCnk/kai-chang-bai4.jpg" alt="开场白4">
+                <div class="case-no">Case 04</div>
+                <div class="cover-caption">
+                  <small>Six Years Later</small>
+                  <strong>医美机构 · 六年后的白炽灯</strong>
+                </div>
+              </div>
+              <div class="dossier-body">
+                <div class="dossier-meta">
+                  <span class="meta-pill">前男友线</span>
+                  <span class="meta-pill">Stage 2</span>
+                  <span class="meta-pill">六年后 / 医美机构 / 什么叫因为我甩了你导致你容貌焦虑背着人偷偷医美？</span>
+                </div>
+                <div class="dossier-summary">
+                  你从没想过，再遇到他，会是在医美机构。他这样的人，该出现在璀璨灯光下，而不是在这个消毒水很淡、玻璃门很亮的下午。你自己也不清楚，自己当年急着逃开的，到底是他这个人，还是那时根本不敢碰的人生？
+                </div>
+                <div class="dossier-actions">
+                  <span class="hint hint-alert">请开启前男友线</span>
+                  <div class="action-row">
+                    <button class="btn" onclick="jmp(4)">进入场景</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="dossier" data-case="5">
+            <div class="dossier-top">
+              <div class="dossier-cover">
+                <img src="https://i.postimg.cc/NM0FdFHP/kai-chang-bai5.jpg" alt="开场白5">
+                <div class="case-no">Case 05</div>
+                <div class="cover-caption">
+                  <small>At the Altar</small>
+                  <strong>朋友的婚礼 · 手捧花</strong>
+                </div>
+              </div>
+              <div class="dossier-body">
+                <div class="dossier-meta">
+                  <span class="meta-pill">前男友线</span>
+                  <span class="meta-pill">Stage 2</span>
+                  <span class="meta-pill">婚礼 / 旧日朋友 /为什么变态控制狂都结婚了我们俩却还单着？</span>
+                </div>
+                <div class="dossier-summary">
+                  你曾和Gaspard打过赌：说Raymond这种控制欲重到病态的男人，这辈子肯定单到入土。但他结婚了。此刻，牧师面前，他正低头替新娘理着头纱。你心里冒出的念头却是：Gaspard呢？
+                </div>
+                <div class="dossier-actions">
+                  <span class="hint hint-alert">请开启前男友线</span>
+                  <div class="action-row">
+                    <button class="btn" onclick="jmp(5)">进入场景</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- ABO -->
+      <div class="arc-panel" data-arc-panel="abo">
+        <div class="arc-head">
+          <div class="arc-head-top">
+            <h3>ABO 世界观线</h3>
+            <span class="en">ABO</span>
+          </div>
+          <div class="arc-head-meta">
+            <span class="arc-chip">开场白 6—7</span>
+            <span class="arc-chip">需开启 ABO 世界观</span>
+            <span class="arc-chip">信息素 / Dominant Alpha</span>
+          </div>
+          <p>世上千万种信息素交织碰撞，独独你的气息，是他的本能执念。迟来的契合，沉沦的本能，兜兜转转，无条件沦陷。</p>
+        </div>
+
+        <div class="dossier-list">
+          <article class="dossier" data-case="6">
+            <div class="dossier-top">
+              <div class="dossier-cover">
+                <img src="https://i.postimg.cc/wvBMwMNz/kai-chang-bai6.jpg" alt="开场白6">
+                <div class="case-no">Case 06</div>
+                <div class="cover-caption">
+                  <small>ABO</small>
+                  <strong>相亲局 · 被覆盖的气场</strong>
+                </div>
+              </div>
+              <div class="dossier-body">
+                <div class="dossier-meta">
+                  <span class="meta-pill">ABO</span>
+                  <span class="meta-pill">Dominant Alpha</span>
+                  <span class="meta-pill">相亲 / 信息素 / 每一任相亲对象都被你的信息素压迫逼走之你到底要干嘛？！</span>
+                </div>
+                <div class="dossier-summary">
+                  又一个相亲对象落荒而逃后，你深深叹了口气。“差不多得了吧？”你对着身后空无一人，却散发着强硬信息素的方向丢了个空杯子。“再这样下去，全法国的婚介所要把我拉黑了。”
+                </div>
+                <div class="dossier-actions">
+                  <span class="hint hint-alert">请开启ABO世界观</span>
+                  <div class="action-row">
+                    <button class="btn" onclick="jmp(6)">进入场景</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="dossier" data-case="7">
+            <div class="dossier-top">
+              <div class="dossier-cover">
+                <img src="https://i.postimg.cc/nzLr3rmp/kai-chang-bai7.jpg" alt="开场白7">
+                <div class="case-no">Case 07</div>
+                <div class="cover-caption">
+                  <small>ABO</small>
+                  <strong>酒吧一夜 · 临时标记</strong>
+                </div>
+              </div>
+              <div class="dossier-body">
+                <div class="dossier-meta">
+                  <span class="meta-pill">ABO</span>
+                  <span class="meta-pill">临时标记</span>
+                  <span class="meta-pill">断片 / 三百欧 / 昨晚你其实很一般。</span>
+                </div>
+                <div class="dossier-summary">
+                  你不过是在酒吧多看了两眼青春男大。醒来时，床上的人变成了整个巴黎最不好惹的男人。良心和道德狠狠干了一架后，你在床头留下了三百欧。还有一张咬牙切齿的字条：［辛苦了，其实你昨晚很一般！］
+                </div>
+                <div class="dossier-actions">
+                  <span class="hint hint-alert">请开启ABO世界观</span>
+                  <div class="action-row">
+                    <button class="btn" onclick="jmp(7)">进入场景</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- 娱乐圈线 -->
+      <div class="arc-panel" data-arc-panel="ent">
+        <div class="arc-head">
+          <div class="arc-head-top">
+            <h3>娱乐圈线</h3>
+            <span class="en">Showbiz</span>
+          </div>
+          <div class="arc-head-meta">
+            <span class="arc-chip">开场白 8—9</span>
+            <span class="arc-chip">影后 / 热搜 / 媒体大亨</span>
+            <span class="arc-chip">碰瓷 / 红毯 / 失控的聚光灯</span>
+          </div>
+          <p>镁光灯下的每一步都是赌注。你赌热搜能救你，他赌你会来赴约。聚光灯照不到的角落里，真正的戏才刚刚开场。</p>
+        </div>
+
+        <div class="dossier-list">
+          <article class="dossier" data-case="8">
+            <div class="dossier-top">
+              <div class="dossier-cover">
+                <img src="https://i.postimg.cc/XqGjNcjY/Z.png" alt="开场白8">
+                <div class="case-no">Case 08</div>
+                <div class="cover-caption">
+                  <small>Scandal Factory</small>
+                  <strong>影后碰瓷 · 正门还是后门</strong>
+                </div>
+              </div>
+              <div class="dossier-body">
+                <div class="dossier-meta">
+                  <span class="meta-pill">娱乐圈线</span>
+                  <span class="meta-pill">Stage 1</span>
+                  <span class="meta-pill">P图碰瓷 / 热搜 / 碰瓷谁不好偏偏碰瓷半个欧洲的媒体命脉？</span>
+                </div>
+                <div class="dossier-summary">
+                  夺得影后的那天，前经纪人捏着你出道前的黑料，说要七天后公开。<br>
+为了用更大的新闻炸掉它，凌晨三点，你从外网扒了一张法国媒体大亨的高清无码生图，精修了一张亲密同框丢上微博。<br>
+三分钟后，#影后秘恋法国财阀# 直接冲上热搜第一。<br>
+第二天，巴黎的律师函就到了，附一行手写备注：「照片修得不错。——G.V.」
+                </div>
+                <div class="dossier-actions">
+                  <div class="action-row action-right">
+                    <button class="btn" onclick="jmp(8)">进入场景</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="dossier" data-case="9">
+            <div class="dossier-top">
+              <div class="dossier-cover">
+                <img src="https://i.postimg.cc/1XvmymNn/Z.png" alt="开场白9">
+                <div class="case-no">Case 09</div>
+                <div class="cover-caption">
+                  <small>Wrong Car</small>
+                  <strong>红毯散场 · 帕加尼夜惊魂</strong>
+                </div>
+              </div>
+              <div class="dossier-body">
+                <div class="dossier-meta">
+                  <span class="meta-pill">娱乐圈线</span>
+                  <span class="meta-pill">Stage 1</span>
+                  <span class="meta-pill">红毯 / 帕加尼 / 鞋呢？！</span>
+                </div>
+                <div class="dossier-summary">
+                  红毯散场后你累疯了，看见酒店门口停着的车，以为是助理帮你准备的。<br>
+你拉开后座门就钻进去：“师傅，回Le Majestic，开快点。”<br>
+金发碧眼的法国男人从后视镜看了你一眼：“我不是……算了，女士在夜晚的请求，怎么能拒绝呢。”<br>
+第二天评审见面会，他坐在最中间的位子上，远远冲你举了一下咖啡杯。
+                </div>
+                <div class="dossier-actions">
+                  <div class="action-row action-right">
+                    <button class="btn" onclick="jmp(9)">进入场景</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+        </div><!-- /archive-drawer-inner -->
+      </div><!-- /archive-drawer -->
+    </div><!-- /archive-nav -->
+  </section>
+
+  <!-- ── INTEL BAND ── -->
+  <div class="intel-band">
+    <div class="intel-cell">
+      <div class="intel-num">01</div>
+      <div class="intel-title">使用说明</div>
+      <div class="intel-body">
+        <p>按「档案室」逻辑收纳每条开场。点击上方线路切换，展开对应档案。</p>
+        <p>点击「进入场景」直接开始对应剧情。</p>
+        <p>请按照每条分线边的世界书要求切换世界书。</p>
+      </div>
+    </div>
+    <div class="intel-cell">
+      <div class="intel-num">02</div>
+      <div class="intel-title">权限说明</div>
+      <div class="intel-body">
+        <div class="perm-row"><span class="perm-badge info">↓</span><div>获取：免费发布于 dc社区：旅程 / 多林国 / 堆堆demo / 类脑ΙΛΙΑΣ，其他渠道获取均视为盗版</div></div>
+        <div class="perm-row"><span class="perm-badge allow">✓</span><div>允许：自用的二次改编，且改编版本仅供自用</div></div>
+        <div class="perm-row"><span class="perm-badge deny">✕</span><div>禁止：二次传播、任何形式商业使用</div></div>
+      </div>
+    </div>
+    <div class="intel-cell">
+      <div class="intel-num">03</div>
+      <div class="intel-title">叠甲声名</div>
+      <div class="intel-body">
+        <ul>
+          <li>1.拒绝吃饭打厨子的行为，如遇到令您不适的XP，请善用退出键。</li>
+          <li>2.作者本人是M，可能会不自觉嬷U，会尽量控制住自己，如果哪里令您不适，可以自行二改或者退出。</li>
+          <li>3.二改请尽量不要改变char的性向，如果您非要改，别告诉我也行。</li>
+          <li>4.char不洁，user洁不洁user随意。无论如何char永远爱user。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>Author · 棠栀 Talia</span>
+    <span>v3.3.0 · Gaspard de Valois · Dossier Archive</span>
+  </footer>
+</div>
+
+<script>
+const isTouchMobileLayout = () => window.matchMedia('(max-width: 768px) and (hover: none) and (pointer: coarse)').matches;
+
+function toggleArc(name, btn){
+  const drawer = document.getElementById('archive-drawer');
+  const navStack = document.querySelector('.nav-stack');
+  const isMobile = isTouchMobileLayout();
+  const isActive = btn.classList.contains('active');
+
+  document.querySelectorAll('.arc-btn').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.arc-panel').forEach(el=>el.classList.remove('active'));
+
+  if(isActive){
+    drawer.classList.remove('open');
+    if(isMobile){
+      navStack.insertAdjacentElement('afterend', drawer);
+    }
+    return;
+  }
+
+  btn.classList.add('active');
+  const panel = document.querySelector(`[data-arc-panel="${name}"]`);
+  if(panel) panel.classList.add('active');
+
+  if(isMobile){
+    btn.insertAdjacentElement('afterend', drawer);
+  }else{
+    navStack.insertAdjacentElement('afterend', drawer);
+  }
+
+  drawer.classList.add('open');
+}
+
+window.addEventListener('resize', ()=>{
+  const drawer = document.getElementById('archive-drawer');
+  const navStack = document.querySelector('.nav-stack');
+  if(!drawer || !navStack) return;
+  if(!isTouchMobileLayout()){
+    navStack.insertAdjacentElement('afterend', drawer);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.querySelectorAll('.dossier').forEach(card=>{
+    card.addEventListener('click', (e)=>{
+      if(!isTouchMobileLayout()) return;
+      if(e.target.closest('.btn')) return;
+      card.classList.toggle('expanded');
+    });
+  });
+});
+
+
+async function jmp(i){
+  if(typeof setChatMessages!=='function'){
+    alert('请确保酒馆助手插件已开启。');
+    return;
+  }
+  try{
+    await setChatMessages([{message_id:0, swipe_id:i}]);
+  }catch(e){
+    alert('跳转失败，请检查开场白是否已正确设置。');
+    console.error(e);
+  }
+}
+
+// ── Stars ──
+(function(){
+  const canvas = document.getElementById('starCanvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  const N = 120;
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+  resize();
+  window.addEventListener('resize',resize);
+  for(let i=0;i<N;i++){
+    stars.push({
+      x:Math.random()*window.innerWidth,
+      y:Math.random()*window.innerHeight,
+      r:Math.random()*.9+.2,
+      a:Math.random(),
+      da:(Math.random()-.5)*.002,
+      dx:(Math.random()-.5)*.04,
+      dy:(Math.random()-.5)*.04,
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(const s of stars){
+      s.a+=s.da; if(s.a<=0||s.a>=1)s.da*=-1;
+      s.x+=s.dx; s.y+=s.dy;
+      if(s.x<0)s.x=canvas.width; if(s.x>canvas.width)s.x=0;
+      if(s.y<0)s.y=canvas.height; if(s.y>canvas.height)s.y=0;
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(201,170,114,${s.a*.45})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── Parallax hero photo ──
+(function(){
+  const photo = document.querySelector('.hero-photo');
+  if(!photo) return;
+  window.addEventListener('scroll',()=>{
+    const y = window.scrollY;
+    photo.style.transform = `translateY(${y * 0.28}px) scale(1.02)`;
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
+```
