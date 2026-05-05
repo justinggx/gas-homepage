@@ -1,5 +1,5 @@
 ```html
-<!-- v3.2.0 -->
+<!-- v3.2.1 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -1147,7 +1147,7 @@ body::after{
       <span style="opacity:.35">·</span>
       <span>Curated Storyline Index</span>
     </div>
-    <div class="rule-right">v3.2.0 · 棠栀 Talia</div>
+    <div class="rule-right">v3.2.1 · 棠栀 Talia</div>
   </div>
   <div class="rule-divider"></div>
 
@@ -1678,7 +1678,6 @@ body::after{
           </article>
         </div>
       </div>
-      </div>
 
         </div><!-- /archive-drawer-inner -->
       </div><!-- /archive-drawer -->
@@ -1721,7 +1720,7 @@ body::after{
 
   <footer class="footer">
     <span>Author · 棠栀 Talia</span>
-    <span>v3.2.0 · Gaspard de Valois · Dossier Archive</span>
+    <span>v3.2.1 · Gaspard de Valois · Dossier Archive</span>
   </footer>
 </div>
 
