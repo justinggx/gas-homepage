@@ -1806,6 +1806,12 @@ function playSceneTransition(){
   const viewWidth = vv?.width || window.innerWidth || document.documentElement.clientWidth || 0;
   const viewHeight = vv?.height || window.innerHeight || document.documentElement.clientHeight || 0;
 
+  // 在 iframe 中，fixed 相对 iframe 视口，但用户滚动的可能是外层
+  // 用 scrollY + viewHeight/2 算出当前真正可见区域中心
+  const scrollTop = window.scrollY || window.pageYOffset || 0;
+  const centerY = scrollTop + viewHeight / 2;
+  const centerX = viewWidth / 2;
+
   const frameWidth = Math.min(viewWidth * (viewWidth < 560 ? 0.84 : 0.76), 720);
   const frameHeight = Math.min(frameWidth * 0.7, viewHeight * 0.5);
   const lensSize = Math.min(frameWidth * 0.31, viewWidth * 0.32, 210);
@@ -1816,11 +1822,11 @@ function playSceneTransition(){
   overlay.id = 'gas-scene-overlay';
   overlay.setAttribute('aria-hidden', 'true');
   overlay.style.cssText = [
-    'position:fixed',
+    'position:absolute',
     'left:0',
-    'top:0',
-    'right:0',
-    'bottom:0',
+    `top:${scrollTop}px`,
+    `width:${viewWidth}px`,
+    `height:${viewHeight}px`,
     'z-index:2147483647',
     'pointer-events:none',
     'background:rgba(4,6,9,0)',
@@ -1831,7 +1837,7 @@ function playSceneTransition(){
 
   const frame = document.createElement('div');
   frame.style.cssText = [
-    'position:fixed',
+    'position:absolute',
     'left:50%',
     'top:50%',
     'transform:translate(-50%,-50%) scale(.94)',
