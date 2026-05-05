@@ -945,6 +945,7 @@ body::after{
 .camera-rig{
   position:relative;
   width:min(84vw, 720px);
+  max-height:70vh;
   aspect-ratio:1 / .7;
   opacity:0;
   transform:scale(.9) translateY(14px);
@@ -2008,9 +2009,7 @@ async function jmp(i, btn){
   trigger?.classList?.add('is-busy');
 
   try{
-    if(window.innerWidth > 768){
-      await playSceneTransition();
-    }
+    await playSceneTransition();
     await setChatMessages([{message_id:0, swipe_id:i}]);
   }catch(e){
     alert('跳转失败，请检查开场白是否已正确设置。');
