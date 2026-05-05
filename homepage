@@ -1832,7 +1832,7 @@ function playSceneTransition(){
   frame.style.cssText = [
     'position:absolute',
     'left:50%',
-    'top:55%',
+    'top:65%',
     'transform:translate(-50%,-50%) scale(.94)',
     `width:${frameWidth}px`,
     `height:${frameHeight}px`,
