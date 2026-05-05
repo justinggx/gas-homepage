@@ -1273,7 +1273,7 @@ body::after{
           <small>Cabinet 05</small>
           <strong>系统线</strong>
           <em class="arc-suben">PRISM SYSTEM</em>
-          <span>实话系统降临后的失控真相</span>
+          <span>系统降临后的失控真相</span>
           <span class="arc-count">2 dossiers</span>
         </button>
       </div>
@@ -1640,7 +1640,7 @@ body::after{
                 <div class="case-no">Case 10</div>
                 <div class="cover-caption">
                   <small>Prism Lie Detector</small>
-                  <strong>假装失忆 · 医院里的阴谋论</strong>
+                  <strong>实话系统 · 医院里的阴谋论</strong>
                 </div>
               </div>
               <div class="dossier-body">
@@ -1650,12 +1650,12 @@ body::after{
                   <span class="meta-pill">枪击 / 失忆 / 测谎 / 他到底在装什么？</span>
                 </div>
                 <div class="dossier-summary">
-                  晚宴过后，那个追你追得莫名其妙的Gaspard被人枪击送进医院。醒来第一句话，他问你是谁。<br>
-你觉得这失忆戏码假得离谱，偏偏手里的PRISM系统也立刻弹出结论：他说谎。<br>
-从那天起，你一边怀疑他自导自演，一边疯狂用测谎和深度分析防身，直到系统把那个最离谱的答案直接甩到你脸上——他所有绕来绕去的靠近，目标都是你。
+             整个巴黎最难缠的男人为了追你，假装失忆。殊不知你绑定了实话系统。<br>
+你对他浅浅做了一个背调。随后当即拍板：烂桃花要不得！<br>
+他却嘴角一挑，自信满满：“On se reverra, chérie.（我们还会再见的，宝贝。）”
                 </div>
                 <div class="dossier-actions">
-                  <span class="hint hint-alert">需开启：prism监管者系统（搭配扩展）世界书;扩展地址请见世界书首段</span>
+                  <span class="hint hint-alert">需开启：prism监管者系统世界书；扩展地址请见世界书首段</span>
                   <div class="action-row">
                     <button class="btn" onclick="jmp(10,this)">进入场景</button>
                   </div>
@@ -1671,7 +1671,7 @@ body::after{
                 <div class="case-no">Case 11</div>
                 <div class="cover-caption">
                   <small>Public Engagement</small>
-                  <strong>直播官宣 · 从天而降的未婚妻</strong>
+                  <strong>实话系统 · 从天而降的未婚夫</strong>
                 </div>
               </div>
               <div class="dossier-body">
@@ -1681,12 +1681,13 @@ body::after{
                   <span class="meta-pill">婚约 / 直播 / PRISM / 他订婚怎么只通知他自己？</span>
                 </div>
                 <div class="dossier-summary">
-                  你和Gaspard不过见过几次，结果他在财经直播里，面不改色公开承认你是他的未婚妻。<br>
-全办公室都炸了，你只能一边顶着同事和领导的围观，一边紧急打开刚绑定一周的PRISM系统。<br>
-系统冷酷判定：真话。因为在他的主观认知里，你已经是唯一结婚对象。等你冲到楼下，他本人正倚着超跑，笑着等你来兴师问罪。
+                 Gaspard de Valois在直播采访里公开跟你的婚约时，你正坐在工位上改PPT。<br>
+同事的艳羡，领导的惊叹，还有此起彼伏的祝福声一齐送来，你却一口冰美式喷在键盘上。<br>
+什么婚约？！<br>
+你怎么不知道？！
                 </div>
                 <div class="dossier-actions">
-                  <span class="hint hint-alert">需开启：prism监管者系统（搭配扩展）世界书;扩展地址请见世界书首段</span>
+                  <span class="hint hint-alert">需开启：prism监管者系统世界书；扩展地址请见世界书首段</span>
                   <div class="action-row">
                     <button class="btn" onclick="jmp(11,this)">进入场景</button>
                   </div>
