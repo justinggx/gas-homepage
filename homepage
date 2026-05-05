@@ -1,5 +1,5 @@
 ```html
-<!-- v3.2.3 -->
+<!-- v3.2.4 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -60,8 +60,6 @@ body::after{
   position:relative;
   width:100%;
   min-height:100vh;
-  min-height:100svh;
-  min-height:100dvh;
   display:flex;
   flex-direction:column;
 }
@@ -885,12 +883,14 @@ body::after{
 
 /* ─── MOBILE COMPAT SAFETY ─── */
 @media (max-width:768px){
+  html{scroll-behavior:auto;-webkit-text-size-adjust:100%;text-size-adjust:100%}
   body::after{display:none}
   #starCanvas{display:none}
   .hero-photo::after{mix-blend-mode:normal}
-  .hero-photo,.hero-photo::before,.hero-photo::after{will-change:auto}
-  .archive-drawer{overflow:visible}
+  .hero-photo,.hero-photo::before,.hero-photo::after{will-change:auto;transform:none !important;animation:none !important;transition:none !important}
+  .archive-drawer{overflow:visible;transition:none}
   .archive-drawer-inner{overflow:visible}
+  .hint-alert{animation:none}
 }
 
 /* ─── STAR CANVAS ─── */
@@ -1165,7 +1165,7 @@ body::after{
       <span style="opacity:.35">·</span>
       <span>Curated Storyline Index</span>
     </div>
-    <div class="rule-right">v3.2.3 · 棠栀 Talia</div>
+    <div class="rule-right">v3.2.4 · 棠栀 Talia</div>
   </div>
   <div class="rule-divider"></div>
 
@@ -1739,7 +1739,7 @@ body::after{
 
   <footer class="footer">
     <span>Author · 棠栀 Talia</span>
-    <span>v3.2.3 · Gaspard de Valois · Dossier Archive</span>
+    <span>v3.2.4 · Gaspard de Valois · Dossier Archive</span>
   </footer>
 </div>
 
@@ -2061,13 +2061,7 @@ async function jmp(i, btn){
 
 // ── Parallax hero photo ──
 (function(){
-  if(window.innerWidth <= 768) return;
-  const photo = document.querySelector('.hero-photo');
-  if(!photo) return;
-  window.addEventListener('scroll',()=>{
-    const y = window.scrollY;
-    photo.style.transform = `translateY(${y * 0.28}px) scale(1.02)`;
-  },{passive:true});
+  return;
 })();
 </script>
 </body>
