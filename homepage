@@ -1,5 +1,5 @@
 ```html
-<!-- v3.1.4 -->
+<!-- v3.2.0 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -370,7 +370,7 @@ body::after{
 }
 .nav-stack{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,1fr);
 }
 .arc-btn{
   text-align:left;width:100%;
@@ -1147,7 +1147,7 @@ body::after{
       <span style="opacity:.35">·</span>
       <span>Curated Storyline Index</span>
     </div>
-    <div class="rule-right">v3.1.4 · 棠栀 Talia</div>
+    <div class="rule-right">v3.2.0 · 棠栀 Talia</div>
   </div>
   <div class="rule-divider"></div>
 
@@ -1249,6 +1249,13 @@ body::after{
           <strong>娱乐圈线</strong>
           <em class="arc-suben">SHOWBIZ</em>
           <span>聚光灯下的碰瓷与失控</span>
+          <span class="arc-count">2 dossiers</span>
+        </button>
+        <button class="arc-btn" data-arc="sys" onclick="toggleArc('sys',this)">
+          <small>Cabinet 05</small>
+          <strong>系统线</strong>
+          <em class="arc-suben">PRISM SYSTEM</em>
+          <span>实话系统降临后的失控真相</span>
           <span class="arc-count">2 dossiers</span>
         </button>
       </div>
@@ -1549,6 +1556,7 @@ body::after{
 第二天，巴黎的律师函就到了，附一行手写备注：「照片修得不错。——G.V.」
                 </div>
                 <div class="dossier-actions">
+                  <span class="hint hint-alert">请开启娱乐圈线</span>
                   <div class="action-row action-right">
                     <button class="btn" onclick="jmp(8,this)">进入场景</button>
                   </div>
@@ -1580,6 +1588,7 @@ body::after{
 第二天评审见面会，他坐在最中间的位子上，远远冲你举了一下咖啡杯。
                 </div>
                 <div class="dossier-actions">
+                  <span class="hint hint-alert">请开启娱乐圈线</span>
                   <div class="action-row action-right">
                     <button class="btn" onclick="jmp(9,this)">进入场景</button>
                   </div>
@@ -1588,6 +1597,86 @@ body::after{
             </div>
           </article>
         </div>
+
+      <!-- 系统线 -->
+      <div class="arc-panel" data-arc-panel="sys">
+        <div class="arc-head">
+          <div class="arc-head-top">
+            <h3>系统线</h3>
+            <span class="en">PRISM System</span>
+          </div>
+          <div class="arc-head-meta">
+            <span class="arc-chip">开场白 10—11</span>
+            <span class="arc-chip">实话系统 / 测谎 / 深度分析</span>
+            <span class="arc-chip">假失忆 / 婚约直播 / 真心无处可藏</span>
+          </div>
+          <p>当真话被系统强行照亮，伪装、试探和暧昧都失去遮羞布。你以为自己在查案，结果先被他认定成了唯一答案。</p>
+        </div>
+
+        <div class="dossier-list">
+          <article class="dossier" data-case="10">
+            <div class="dossier-top">
+              <div class="dossier-cover">
+                <img src="https://i.postimg.cc/8zDFypF6/banana-20260505-150413.png" alt="开场白10">
+                <div class="case-no">Case 10</div>
+                <div class="cover-caption">
+                  <small>Prism Lie Detector</small>
+                  <strong>假装失忆 · 医院里的阴谋论</strong>
+                </div>
+              </div>
+              <div class="dossier-body">
+                <div class="dossier-meta">
+                  <span class="meta-pill">系统线</span>
+                  <span class="meta-pill">Stage 1</span>
+                  <span class="meta-pill">枪击 / 失忆 / 测谎 / 他到底在装什么？</span>
+                </div>
+                <div class="dossier-summary">
+                  晚宴过后，那个追你追得莫名其妙的Gaspard被人枪击送进医院。醒来第一句话，他问你是谁。<br>
+你觉得这失忆戏码假得离谱，偏偏手里的PRISM系统也立刻弹出结论：他说谎。<br>
+从那天起，你一边怀疑他自导自演，一边疯狂用测谎和深度分析防身，直到系统把那个最离谱的答案直接甩到你脸上——他所有绕来绕去的靠近，目标都是你。
+                </div>
+                <div class="dossier-actions">
+                  <span class="hint hint-alert">需开启：prism监管者系统（搭配扩展）世界书;扩展地址请见世界书首段</span>
+                  <div class="action-row">
+                    <button class="btn" onclick="jmp(10,this)">进入场景</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="dossier" data-case="11">
+            <div class="dossier-top">
+              <div class="dossier-cover">
+                <img src="https://i.postimg.cc/P53tmT1n/banana-20260505-150909.png" alt="开场白11">
+                <div class="case-no">Case 11</div>
+                <div class="cover-caption">
+                  <small>Public Engagement</small>
+                  <strong>直播官宣 · 从天而降的未婚妻</strong>
+                </div>
+              </div>
+              <div class="dossier-body">
+                <div class="dossier-meta">
+                  <span class="meta-pill">系统线</span>
+                  <span class="meta-pill">Stage 1</span>
+                  <span class="meta-pill">婚约 / 直播 / PRISM / 他订婚怎么只通知他自己？</span>
+                </div>
+                <div class="dossier-summary">
+                  你和Gaspard不过见过几次，结果他在财经直播里，面不改色公开承认你是他的未婚妻。<br>
+全办公室都炸了，你只能一边顶着同事和领导的围观，一边紧急打开刚绑定一周的PRISM系统。<br>
+系统冷酷判定：真话。因为在他的主观认知里，你已经是唯一结婚对象。等你冲到楼下，他本人正倚着超跑，笑着等你来兴师问罪。
+                </div>
+                <div class="dossier-actions">
+                  <span class="hint hint-alert">需开启：prism监管者系统（搭配扩展）世界书;扩展地址请见世界书首段</span>
+                  <div class="action-row">
+                    <button class="btn" onclick="jmp(11,this)">进入场景</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
       </div>
 
         </div><!-- /archive-drawer-inner -->
@@ -1631,7 +1720,7 @@ body::after{
 
   <footer class="footer">
     <span>Author · 棠栀 Talia</span>
-    <span>v3.1.4 · Gaspard de Valois · Dossier Archive</span>
+    <span>v3.2.0 · Gaspard de Valois · Dossier Archive</span>
   </footer>
 </div>
 
