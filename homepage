@@ -1805,8 +1805,6 @@ function playSceneTransition(){
   const vv = window.visualViewport;
   const viewWidth = vv?.width || window.innerWidth || document.documentElement.clientWidth || 0;
   const viewHeight = vv?.height || window.innerHeight || document.documentElement.clientHeight || 0;
-  const scrollLeft = (window.scrollX || window.pageXOffset || 0) + (vv?.offsetLeft || 0);
-  const scrollTop = (window.scrollY || window.pageYOffset || 0) + (vv?.offsetTop || 0);
 
   const frameWidth = Math.min(viewWidth * (viewWidth < 560 ? 0.84 : 0.76), 720);
   const frameHeight = Math.min(frameWidth * 0.7, viewHeight * 0.5);
@@ -1818,11 +1816,11 @@ function playSceneTransition(){
   overlay.id = 'gas-scene-overlay';
   overlay.setAttribute('aria-hidden', 'true');
   overlay.style.cssText = [
-    'position:absolute',
-    `left:${scrollLeft}px`,
-    `top:${scrollTop}px`,
-    `width:${viewWidth}px`,
-    `height:${viewHeight}px`,
+    'position:fixed',
+    'left:0',
+    'top:0',
+    'right:0',
+    'bottom:0',
     'z-index:2147483647',
     'pointer-events:none',
     'background:rgba(4,6,9,0)',
@@ -1833,7 +1831,7 @@ function playSceneTransition(){
 
   const frame = document.createElement('div');
   frame.style.cssText = [
-    'position:absolute',
+    'position:fixed',
     'left:50%',
     'top:50%',
     'transform:translate(-50%,-50%) scale(.94)',
@@ -1959,6 +1957,9 @@ function playSceneTransition(){
 
   const setStyles = (el, styles) => Object.assign(el.style, styles);
 
+  // 锁定滚动
+  document.body.style.overflow = 'hidden';
+
   return new Promise(resolve => {
     requestAnimationFrame(() => {
       setStyles(overlay, { background: 'rgba(4,6,9,0.82)' });
@@ -1990,6 +1991,7 @@ function playSceneTransition(){
 
     setTimeout(() => {
       overlay.remove();
+      document.body.style.overflow = '';
       resolve();
     }, 1220);
   });
