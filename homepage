@@ -1,5 +1,5 @@
 ```html
-<!-- v3.2.2 -->
+<!-- v3.2.3 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -38,6 +38,7 @@ body{
   overflow-x:hidden;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:auto;
   touch-action:pan-y;
   line-height:1;
 }
@@ -881,6 +882,17 @@ body::after{
   .changelog-head,.changelog-row{padding-left:14px;padding-right:14px}
 }
 
+
+/* ─── MOBILE COMPAT SAFETY ─── */
+@media (max-width:768px){
+  body::after{display:none}
+  #starCanvas{display:none}
+  .hero-photo::after{mix-blend-mode:normal}
+  .hero-photo,.hero-photo::before,.hero-photo::after{will-change:auto}
+  .archive-drawer{overflow:visible}
+  .archive-drawer-inner{overflow:visible}
+}
+
 /* ─── STAR CANVAS ─── */
 #starCanvas{
   position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.32;
@@ -1153,7 +1165,7 @@ body::after{
       <span style="opacity:.35">·</span>
       <span>Curated Storyline Index</span>
     </div>
-    <div class="rule-right">v3.2.2 · 棠栀 Talia</div>
+    <div class="rule-right">v3.2.3 · 棠栀 Talia</div>
   </div>
   <div class="rule-divider"></div>
 
@@ -1726,7 +1738,7 @@ body::after{
 
   <footer class="footer">
     <span>Author · 棠栀 Talia</span>
-    <span>v3.2.2 · Gaspard de Valois · Dossier Archive</span>
+    <span>v3.2.3 · Gaspard de Valois · Dossier Archive</span>
   </footer>
 </div>
 
@@ -1995,7 +2007,9 @@ async function jmp(i, btn){
   trigger?.classList?.add('is-busy');
 
   try{
-    await playSceneTransition();
+    if(window.innerWidth > 768){
+      await playSceneTransition();
+    }
     await setChatMessages([{message_id:0, swipe_id:i}]);
   }catch(e){
     alert('跳转失败，请检查开场白是否已正确设置。');
@@ -2008,6 +2022,7 @@ async function jmp(i, btn){
 
 // ── Stars ──
 (function(){
+  if(window.innerWidth <= 768) return;
   const canvas = document.getElementById('starCanvas');
   const ctx = canvas.getContext('2d');
   let stars = [];
@@ -2045,6 +2060,7 @@ async function jmp(i, btn){
 
 // ── Parallax hero photo ──
 (function(){
+  if(window.innerWidth <= 768) return;
   const photo = document.querySelector('.hero-photo');
   if(!photo) return;
   window.addEventListener('scroll',()=>{
