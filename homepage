@@ -1,5 +1,5 @@
 ```html
-<!-- v3.2.5 -->
+<!-- v3.2.6 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -1166,7 +1166,7 @@ body::after{
       <span style="opacity:.35">·</span>
       <span>Curated Storyline Index</span>
     </div>
-    <div class="rule-right">v3.2.5 · 棠栀 Talia</div>
+    <div class="rule-right">v3.2.6 · 棠栀 Talia</div>
   </div>
   <div class="rule-divider"></div>
 
@@ -1740,7 +1740,7 @@ body::after{
 
   <footer class="footer">
     <span>Author · 棠栀 Talia</span>
-    <span>v3.2.5 · Gaspard de Valois · Dossier Archive</span>
+    <span>v3.2.6 · Gaspard de Valois · Dossier Archive</span>
   </footer>
 </div>
 
@@ -1802,13 +1802,8 @@ function playSceneTransition(){
   const existing = document.getElementById('gas-scene-overlay');
   if(existing) existing.remove();
 
-  const vv = window.visualViewport;
-  const viewLeft = (window.scrollX || window.pageXOffset || 0) + (vv?.offsetLeft || 0);
-  const viewTop = (window.scrollY || window.pageYOffset || 0) + (vv?.offsetTop || 0);
-  const viewWidth = vv?.width || window.innerWidth || document.documentElement.clientWidth || 0;
-  const viewHeight = vv?.height || window.innerHeight || document.documentElement.clientHeight || 0;
-  const centerX = viewLeft + viewWidth / 2;
-  const centerY = viewTop + viewHeight / 2;
+  const viewWidth = window.visualViewport?.width || window.innerWidth || document.documentElement.clientWidth || 0;
+  const viewHeight = window.visualViewport?.height || window.innerHeight || document.documentElement.clientHeight || 0;
 
   const frameWidth = Math.min(viewWidth * (viewWidth < 560 ? 0.84 : 0.76), 720);
   const frameHeight = Math.min(frameWidth * 0.7, viewHeight * 0.5);
@@ -1820,11 +1815,11 @@ function playSceneTransition(){
   overlay.id = 'gas-scene-overlay';
   overlay.setAttribute('aria-hidden', 'true');
   overlay.style.cssText = [
-    'position:absolute',
-    `left:${viewLeft}px`,
-    `top:${viewTop}px`,
-    `width:${viewWidth}px`,
-    `height:${viewHeight}px`,
+    'position:fixed',
+    'left:0',
+    'top:0',
+    'width:100vw',
+    'height:100vh',
     'z-index:2147483647',
     'pointer-events:none',
     'background:rgba(4,6,9,0)',
@@ -1836,8 +1831,8 @@ function playSceneTransition(){
   const frame = document.createElement('div');
   frame.style.cssText = [
     'position:absolute',
-    `left:${centerX}px`,
-    `top:${centerY}px`,
+    'left:50%',
+    'top:50%',
     'transform:translate(-50%,-50%) scale(.94)',
     `width:${frameWidth}px`,
     `height:${frameHeight}px`,
