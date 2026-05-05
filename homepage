@@ -1798,19 +1798,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 let sceneTransitionBusy = false;
 
-function playSceneTransition(){
+function playSceneTransition(triggerEl){
   const existing = document.getElementById('gas-scene-overlay');
   if(existing) existing.remove();
 
-  const vv = window.visualViewport;
-  const viewWidth = vv?.width || window.innerWidth || document.documentElement.clientWidth || 0;
-  const viewHeight = vv?.height || window.innerHeight || document.documentElement.clientHeight || 0;
-
-  // 在 iframe 中，fixed 相对 iframe 视口，但用户滚动的可能是外层
-  // 用 scrollY + viewHeight/2 算出当前真正可见区域中心
-  const scrollTop = window.scrollY || window.pageYOffset || 0;
-  const centerY = scrollTop + viewHeight / 2;
-  const centerX = viewWidth / 2;
+  const viewWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+  const viewHeight = window.innerHeight || document.documentElement.clientHeight || 0;
 
   const frameWidth = Math.min(viewWidth * (viewWidth < 560 ? 0.84 : 0.76), 720);
   const frameHeight = Math.min(frameWidth * 0.7, viewHeight * 0.5);
@@ -1818,13 +1811,27 @@ function playSceneTransition(){
   const cornerOffset = Math.max(18, Math.min(frameWidth * 0.04, 28));
   const cornerSize = Math.max(52, Math.min(frameWidth * 0.1, 72));
 
+  // 关键：如果页面在 iframe 中且外部容器控制滚动，window.scrollY=0
+  // 用 triggerEl.getBoundingClientRect() 获取按钮相对视口的位置来推算真实可见区域
+  let realScrollTop;
+  if(triggerEl && triggerEl.getBoundingClientRect){
+    const rect = triggerEl.getBoundingClientRect();
+    // 按钮在视口中的位置 = rect.top
+    // 按钮在文档中的位置 = offsetTop（近似）
+    // 真实滚动量 = 文档位置 - 视口位置
+    const offsetTop = triggerEl.offsetTop || 0;
+    realScrollTop = Math.max(0, offsetTop - rect.top);
+  } else {
+    realScrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.scrollY || 0;
+  }
+
   const overlay = document.createElement('div');
   overlay.id = 'gas-scene-overlay';
   overlay.setAttribute('aria-hidden', 'true');
   overlay.style.cssText = [
     'position:absolute',
     'left:0',
-    `top:${scrollTop}px`,
+    `top:${realScrollTop}px`,
     `width:${viewWidth}px`,
     `height:${viewHeight}px`,
     'z-index:2147483647',
@@ -1959,7 +1966,7 @@ function playSceneTransition(){
 
   frame.append(tl,tr,bl,br,rec,cap,line,lens,copy);
   overlay.append(frame, flash);
-  document.body.appendChild(overlay);
+  (document.documentElement || document.body).appendChild(overlay);
 
   const setStyles = (el, styles) => Object.assign(el.style, styles);
 
@@ -2015,7 +2022,7 @@ async function jmp(i, btn){
   trigger?.classList?.add('is-busy');
 
   try{
-    await playSceneTransition();
+    await playSceneTransition(trigger);
     await setChatMessages([{message_id:0, swipe_id:i}]);
   }catch(e){
     alert('跳转失败，请检查开场白是否已正确设置。');
